@@ -1,0 +1,47 @@
+keywords:
+  semiconductor: 3.0
+  chip: 2.5
+  NVIDIA: 3.0
+  NVDA: 3.0
+  TSM: 2.5
+  TSMC: 2.5
+  ASML: 2.5
+  AMD: 2.0
+  Broadcom: 2.0
+  AVGO: 2.0
+  export control: 3.0
+  sanctions: 2.5
+  tariff: 2.0
+  earnings: 2.0
+  guidance: 2.0
+  capex: 2.5
+  data center: 2.0
+  AI chip: 3.0
+  HBM: 2.5
+  CoWoS: 2.0
+  EUV: 2.0
+  FOMC: 2.0
+  CPI: 2.0
+  nonfarm: 2.0
+
+prefilter:
+  stage_a_threshold: 6.0
+  stage_b_top_k: 30
+
+macro_title_map:
+  '(?i)\bFOMC\b': { entity: 'us', sub_type: 'fomc' }
+  '(?i)\bCPI\b': { entity: 'us', sub_type: 'cpi' }
+  '(?i)\b(nonfarm|NFP|non-farm)\b': { entity: 'us', sub_type: 'nfp' }
+  '(?i)\bPPI\b': { entity: 'us', sub_type: 'ppi' }
+  '(?i)\bPCE\b': { entity: 'us', sub_type: 'pce' }
+  '(?i)\bGDP\b': { entity: 'us', sub_type: 'gdp' }
+  '(?i)\bjobless claims\b': { entity: 'us', sub_type: 'jobless-claims' }
+  '(?i)\bISM\b': { entity: 'us', sub_type: 'ism' }
+  '(?i)\bretail sales\b': { entity: 'us', sub_type: 'retail-sales' }
+
+sources:
+  rss:
+    - name: BIS Press Releases
+      url: 'https://www.bis.doc.gov/index.php?option=com_content&view=category&id=218&Itemid=591&format=feed&type=rss'
+    - name: SemiEngineering
+      url: 'https://semiengineering.com/feed/'

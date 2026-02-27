@@ -1,0 +1,90 @@
+name: Daily Event Radar
+
+on:
+  schedule:
+    # 07:05 JST = 22:05 UTC (前日)
+    - cron: '5 22 * * *'
+  workflow_dispatch:  # 手動実行用
+
+env:
+  DB_RELEASE_TAG: 'db-latest'
+  DB_FILENAME: 'events.sqlite'
+  DRY_RUN: 'true'  # Phase 1: true → Claude/API無効。機能追加後にfalseへ変更
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - run: pip install -e .
+      - run: pip install pydantic pyyaml requests
+
+      # DB復元（GitHub Releasesから）
+      - name: Restore DB from Release
+        run: |
+          gh release download "$DB_RELEASE_TAG" \
+            --pattern "$DB_FILENAME" \
+            --dir . \
+            --clobber 2>/dev/null || echo "No existing DB found. Starting fresh."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 日次バッチ実行
+      - name: Run daily pipeline
+        run: |
+          DRY_FLAG=""
+          if [ "$DRY_RUN" = "true" ]; then
+            DRY_FLAG="--dry-run"
+          fi
+          python -m sector_event_radar.run_daily \
+            --config config.yaml \
+            --db "$DB_FILENAME" \
+            --ics-dir ./output \
+            $DRY_FLAG | tee run_summary.json
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TE_API_KEY: ${{ secrets.TE_API_KEY }}
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+
+      # DB保存（GitHub Releasesへ）
+      - name: Save DB to Release
+        run: |
+          gh release view "$DB_RELEASE_TAG" >/dev/null 2>&1 || \
+            gh release create "$DB_RELEASE_TAG" \
+              --title "Database (auto-updated)" \
+              --notes "events.sqlite は日次バッチで自動更新されます。" \
+              --latest=false
+          gh release upload "$DB_RELEASE_TAG" \
+            "$DB_FILENAME" \
+            --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ICS を docs/ にコミット
+      - name: Commit ICS files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p docs/ics
+          cp output/*.ics docs/ics/ 2>/dev/null || echo "No ICS files"
+          git add docs/ics/
+          git diff --cached --quiet || git commit -m "Update ICS files [skip ci]"
+          git push || echo "Nothing to push"
+
+      # サマリ出力
+      - name: Job Summary
+        if: always()
+        run: |
+          echo "## Daily Radar Summary" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat run_summary.json >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo '{"error": "no summary"}' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

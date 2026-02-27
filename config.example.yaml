@@ -1,0 +1,33 @@
+# キーワード辞書 (M1 Stage A)
+keywords:
+  # weight: 任意の重み。合計が閾値以上で通過。
+  "cpi": 3.0
+  "inflation": 3.0
+  "fomc": 3.0
+  "fed": 2.0
+  "earnings": 2.0
+  "guidance": 2.0
+  "export control": 3.0
+  "sanction": 3.0
+  "nvidia": 3.0
+  "tsmc": 3.0
+  "asml": 3.0
+  "semiconductor": 2.0
+
+prefilter:
+  stage_a_threshold: 6.0
+  stage_b_top_k: 30
+
+# macroのタイトル→(entity, sub_type) の軽量マッピング (M3)
+macro_title_map:
+  # 正規表現: {entity, sub_type}
+  '(?i)\bCPI\b': { entity: "us", sub_type: "cpi" }
+  '(?i)\bFOMC\b': { entity: "us", sub_type: "fomc" }
+  '(?i)\bNFP\b|Nonfarm': { entity: "us", sub_type: "nfp" }
+  '(?i)\bPCE\b': { entity: "us", sub_type: "pce" }
+# 予定イベントのソース (例)
+sources:
+  rss:
+    - name: "reuters_semiconductors"
+      url: "https://example.com/rss"
+  # tradingeconomics / fmp は実装側でURLを構成する想定

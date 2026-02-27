@@ -1,0 +1,9 @@
+[project]
+name = "sector-event-radar"
+version = "0.1.0"
+description = "Sector Event Radar skeleton"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
