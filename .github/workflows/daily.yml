@@ -9,7 +9,7 @@ on:
 env:
   DB_RELEASE_TAG: 'db-latest'
   DB_FILENAME: 'events.sqlite'
-  DRY_RUN: 'true'  # Phase 1: true → Claude/API無効。機能追加後にfalseへ変更
+  DRY_RUN: 'false'  # Phase 1: true → Claude/API無効。機能追加後にfalseへ変更
 
 jobs:
   run:
