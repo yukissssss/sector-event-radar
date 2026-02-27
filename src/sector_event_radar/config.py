@@ -31,8 +31,14 @@ class SourcesConfig(BaseModel):
 class AppConfig(BaseModel):
     keywords: Dict[str, float] = Field(default_factory=dict)
     prefilter: PrefilterConfig = Field(default_factory=PrefilterConfig)
-    macro_title_map: Dict[str, MacroTitleRule] = Field(default_factory=dict)  # regex -> rule
+    macro_title_map: Dict[str, MacroTitleRule] = Field(default_factory=dict)
     sources: SourcesConfig = Field(default_factory=SourcesConfig)
+    bellwether_tickers: List[str] = Field(
+        default_factory=lambda: ["NVDA", "TSM", "ASML", "AMD", "AVGO",
+                                  "MSFT", "GOOGL", "AMZN", "META"]
+    )
+    te_country: str = "united states"
+    te_importance: int = 3
 
     @classmethod
     def load(cls, path: str | Path) -> "AppConfig":

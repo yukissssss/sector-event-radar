@@ -45,3 +45,17 @@ sources:
       url: 'https://www.bis.doc.gov/index.php?option=com_content&view=category&id=218&Itemid=591&format=feed&type=rss'
     - name: SemiEngineering
       url: 'https://semiengineering.com/feed/'
+
+bellwether_tickers:
+  - NVDA
+  - TSM
+  - ASML
+  - AMD
+  - AVGO
+  - MSFT
+  - GOOGL
+  - AMZN
+  - META
+
+te_country: 'united states'
+te_importance: 3

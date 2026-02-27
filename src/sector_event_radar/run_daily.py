@@ -96,7 +96,11 @@ def _collect_scheduled(cfg: AppConfig, now: datetime) -> Tuple[List[Event], List
     te_key = os.environ.get("TE_API_KEY", "")
     if te_key:
         try:
-            te_events = fetch_tradingeconomics_events(te_key, start_str, end_str)
+            te_events = fetch_tradingeconomics_events(
+                te_key, start_str, end_str,
+                country=cfg.te_country,
+                importance=cfg.te_importance,
+            )
             events.extend(te_events)
             logger.info("TE: collected %d events", len(te_events))
         except Exception as e:
@@ -110,7 +114,10 @@ def _collect_scheduled(cfg: AppConfig, now: datetime) -> Tuple[List[Event], List
     fmp_key = os.environ.get("FMP_API_KEY", "")
     if fmp_key:
         try:
-            fmp_events = fetch_fmp_earnings_events(fmp_key, start_str, end_str)
+            fmp_events = fetch_fmp_earnings_events(
+                fmp_key, start_str, end_str,
+                tickers=cfg.bellwether_tickers,
+            )
             events.extend(fmp_events)
             logger.info("FMP: collected %d events", len(fmp_events))
         except Exception as e:
