@@ -54,6 +54,10 @@ sector-event-radar/
 | `requirements.txt` | pip依存リスト（pydantic, pyyaml, requests） | ✅ |
 | `.gitignore` | .venv, __pycache__, events.sqlite, output等を除外 | ✅ |
 | `docs/ics/` | ICS出力先。Actionsが自動commitする。GitHub Pages公開候補 | ✅ |
+| `docs/handoff/project_progress_log.md` | 累積型進捗ログ。セッションごとに先頭に新エントリを追記。全経緯の一次情報源 | ✅ |
+| `docs/handoff/chat_handoff_memo.md` | 新しいClaude/GPTチャットにコピペで文脈復元する凝縮版 | ✅ |
+| `docs/handoff/file_map_handoff.md` | 本ファイル。全ファイルの役割・場所・実装状態一覧 | ✅ |
+| `docs/handoff/gpt_progress_report_*.md` | GPTへの報告+相談メモ（セッションごとに都度作成） | ✅ |
 
 ### コア（日次バッチ）
 

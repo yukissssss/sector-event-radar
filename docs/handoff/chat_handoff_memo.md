@@ -60,7 +60,11 @@ src/sector_event_radar/
   notify.py          ← スタブ
 config.yaml          ← 本番設定（keywords/macro_title_map/RSS/bellwether）
 docs/ics/            ← ICS出力先（Actions自動commit）
-docs/handoff/        ← 引き継ぎ文書
+docs/handoff/        ← 引き継ぎ文書（以下4ファイル）
+  project_progress_log.md   ← 累積型進捗ログ。セッションごとに先頭追記
+  chat_handoff_memo.md      ← 本ファイル。新チャットにコピペで文脈復元用
+  file_map_handoff.md       ← 全ファイルの役割・場所・実装状態一覧
+  gpt_progress_report_*.md  ← GPTへの報告+相談（都度作成）
 tests/               ← 22テスト（canonical/phase1/scheduled）
 ```
 
