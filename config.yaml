@@ -29,7 +29,7 @@ prefilter:
   stage_b_top_k: 30
 
 macro_title_map:
-  '(?i)\bFOMC\b': { entity: 'us', sub_type: 'fomc' }
+  '(?i)\b(FOMC|fed funds|interest rate decision|federal reserve)\b': { entity: 'us', sub_type: 'fomc' }
   '(?i)\bCPI\b': { entity: 'us', sub_type: 'cpi' }
   '(?i)\b(nonfarm|NFP|non-farm)\b': { entity: 'us', sub_type: 'nfp' }
   '(?i)\bPPI\b': { entity: 'us', sub_type: 'ppi' }
