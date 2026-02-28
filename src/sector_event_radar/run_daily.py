@@ -250,7 +250,11 @@ def _upsert_pipeline(
         # 検証
         ok, reason = validate_event(ev, now=now)
         if not ok:
-            logger.debug("Rejected: %s (%s) reason=%s", ev.title, ev.canonical_key, reason)
+            logger.warning(
+                "Rejected: title='%s' key=%s start_at=%s category=%s reason=%s",
+                ev.title, ev.canonical_key, ev.start_at.isoformat() if ev.start_at else "None",
+                ev.category, reason,
+            )
             stats["rejected"] += 1
             continue
 

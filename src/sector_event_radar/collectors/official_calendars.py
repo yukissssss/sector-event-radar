@@ -37,6 +37,15 @@ BLS_ICS_URL = "https://www.bls.gov/schedule/news_release/bls.ics"
 BEA_ICS_URL = "https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics"
 FRB_FOMC_URL = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
 
+_HTTP_HEADERS = {
+    "User-Agent": (
+        "sector-event-radar/1.0 "
+        "(+https://github.com/yukissssss/sector-event-radar)"
+    ),
+    "Accept": "text/calendar, text/plain;q=0.9, */*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
 # risk_score by sub_type (same scale as FMP macro collector)
 _RISK_BY_SUBTYPE: Dict[str, int] = {
     "fomc": 60,
@@ -238,7 +247,7 @@ def fetch_ics_macro_events(
         timeout: HTTP request timeout
     """
     logger.info("%s: fetching %s", source_name.upper(), ics_url)
-    resp = requests.get(ics_url, timeout=timeout)
+    resp = requests.get(ics_url, headers=_HTTP_HEADERS, timeout=timeout)
     resp.raise_for_status()
 
     vevents = _parse_vevent_blocks(resp.text)
