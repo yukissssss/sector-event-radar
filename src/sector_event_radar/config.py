@@ -39,6 +39,7 @@ class AppConfig(BaseModel):
     )
     te_country: str = "united states"
     te_importance: int = 3
+    fomc_dates: List[str] = Field(default_factory=list)
 
     @classmethod
     def load(cls, path: str | Path) -> "AppConfig":

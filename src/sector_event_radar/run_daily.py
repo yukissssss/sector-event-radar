@@ -25,7 +25,8 @@ from .models import Article, Event
 from .prefilter import prefilter
 from .validate import validate_event
 from .collectors.rss import fetch_rss
-from .collectors.scheduled import fetch_tradingeconomics_events, fetch_fmp_earnings_events, fetch_fmp_macro_events
+from .collectors.scheduled import fetch_tradingeconomics_events, fetch_fmp_earnings_events
+from .collectors.official_calendars import fetch_official_macro_events
 from .llm.claude_extract import ClaudeConfig, extract_events_from_article, ClaudeExtractError
 
 logger = logging.getLogger(__name__)
@@ -127,20 +128,18 @@ def _collect_scheduled(cfg: AppConfig, now: datetime) -> Tuple[List[Event], List
     else:
         logger.info("FMP_API_KEY not set, skipping FMP earnings")
 
-    # FMP Economic Calendar (macro)
-    if fmp_key:
-        try:
-            macro_rules = cfg.macro_rules_compiled()
-            fmp_macro = fetch_fmp_macro_events(
-                fmp_key, start_str, end_str,
-                macro_rules=macro_rules,
-            )
-            events.extend(fmp_macro)
-            logger.info("FMP macro: collected %d events", len(fmp_macro))
-        except Exception as e:
-            msg = f"FMP macro collector failed: {e}"
-            logger.warning(msg)
-            errors.append(msg)
+    # Official government calendars (BLS/BEA/FOMC — free, authoritative)
+    start_dt = now
+    end_dt = now + timedelta(days=180)
+    try:
+        official_events, official_errs = fetch_official_macro_events(cfg, start_dt, end_dt)
+        events.extend(official_events)
+        errors.extend(official_errs)
+        logger.info("Official macro: collected %d events", len(official_events))
+    except Exception as e:
+        msg = f"Official macro collector failed: {e}"
+        logger.warning(msg)
+        errors.append(msg)
 
     return events, errors
 

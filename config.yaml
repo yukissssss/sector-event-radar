@@ -29,6 +29,7 @@ prefilter:
   stage_b_top_k: 30
 
 macro_title_map:
+  # Abbreviations (existing)
   '(?i)\b(FOMC|fed funds|interest rate decision|federal reserve)\b': { entity: 'us', sub_type: 'fomc' }
   '(?i)\bCPI\b': { entity: 'us', sub_type: 'cpi' }
   '(?i)\b(nonfarm|NFP|non-farm)\b': { entity: 'us', sub_type: 'nfp' }
@@ -38,6 +39,13 @@ macro_title_map:
   '(?i)\bjobless claims\b': { entity: 'us', sub_type: 'jobless-claims' }
   '(?i)\bISM\b': { entity: 'us', sub_type: 'ism' }
   '(?i)\bretail sales\b': { entity: 'us', sub_type: 'retail-sales' }
+  # Full-spell variants for BLS/BEA .ics sources
+  '(?i)Consumer Price Index': { entity: 'us', sub_type: 'cpi' }
+  '(?i)Employment Situation': { entity: 'us', sub_type: 'nfp' }
+  '(?i)Producer Price Index': { entity: 'us', sub_type: 'ppi' }
+  '(?i)Gross Domestic Product': { entity: 'us', sub_type: 'gdp' }
+  '(?i)Personal Income and Outlays': { entity: 'us', sub_type: 'pce' }
+  '(?i)Personal Consumption Expenditures': { entity: 'us', sub_type: 'pce' }
 
 sources:
   rss:
@@ -59,3 +67,15 @@ bellwether_tickers:
 
 te_country: 'united states'
 te_importance: 3
+
+# FOMC 2026 announcement dates (day 2 of each meeting, 14:00 ET)
+# Source: https://www.federalreserve.gov/newsevents/pressreleases/monetary20240809a.htm
+fomc_dates:
+  - '2026-01-28'
+  - '2026-03-18'
+  - '2026-04-29'
+  - '2026-06-17'
+  - '2026-07-29'
+  - '2026-09-16'
+  - '2026-10-28'
+  - '2026-12-09'
