@@ -1,7 +1,7 @@
 # Sector Event Radar — プロジェクト進捗ログ
 
-最終更新: 2026-02-27
-リポジトリ: https://github.com/yukissssss/sector-event-radar (private)
+最終更新: 2026-02-28
+リポジトリ: https://github.com/yukissssss/sector-event-radar (public)
 ローカル: ~/Documents/stock_analyzer/sector_event_radar/
 
 > このファイルはセッションごとに追記する累積ログ。
@@ -18,7 +18,48 @@
 
 ---
 
-## Session 8 — 2026-02-27 夜 ★現在★
+## Session 9 — 2026-02-28 ★現在★
+### ICS 0件修正 + GitHub Pages有効化 + iPhoneカレンダー購読成功
+
+**実施内容:**
+- GPT回答を受領:
+  - Q1→FMP Economic Calendar (`/v3/economic_calendar`) を第一候補、カバーできない分だけ静的YAMLで補完
+  - Q2→Pages → macro代替実装 → Claude抽出オンの順
+  - 追加指摘: 0件カテゴリのICSが出力されない問題
+- ICS 0件問題修正: `run_daily.py` の `_generate_ics_files()` から `if not cat_events: continue` を削除
+  - 空カテゴリでもVCALENDARヘッダ+フッタのみの有効なICSを出力するように変更
+- commit + push（`git pull --rebase` でActions自動commitとの競合を解消）
+- Actions手動実行 → `docs/ics/` に全5ファイル出力を確認
+- GitHub Pages有効化を試行 → **privateリポジトリではFree planでPages利用不可**と判明
+- リポジトリを**public化**して再度Pages設定 → Source: Deploy from a branch / main / /docs
+- Pages配信確認: `https://yukissssss.github.io/sector-event-radar/ics/sector_events_all.ics` でICS取得成功
+- **iPhoneカレンダー購読設定完了** → OPEX予定がカレンダーアプリに表示されることを確認
+
+**決定事項:**
+- GPT推奨に従い、macro指標は**FMP Economic Calendarを第一候補**、カバーできない分だけ静的YAMLで補完
+- 優先順位: (1) GitHub Pages ✅完了 → (2) macro代替実装 → (3) Claude抽出オン
+- リポジトリをpublic化（トレードロジックはMR-LS側、APIキーはSecretsで安全）
+
+**ICS配信状態（GitHub Pages）:**
+| ファイル | URL | 状態 |
+|---------|-----|------|
+| sector_events_all.ics | `https://yukissssss.github.io/sector-event-radar/ics/sector_events_all.ics` | ✅ 購読中 |
+| sector_events_flows.ics | 同上パス | ✅ 配信中 |
+| sector_events_bellwether.ics | 同上パス | ✅ 配信中 |
+| sector_events_macro.ics | 同上パス | ✅ 配信中（空） |
+| sector_events_shock.ics | 同上パス | ✅ 配信中（空） |
+
+**変更ファイル:**
+- `src/sector_event_radar/run_daily.py` — `_generate_ics_files()` から `if not cat_events: continue` を削除（2行削除のみ）
+
+**次のアクション:**
+1. FMP Economic Calendar実装（`scheduled.py` に `fetch_fmp_macro_events()` 追加）→ macroカテゴリ有効化
+2. ANTHROPIC_API_KEY登録 + RSSフィード追加 + Claude抽出E2Eテスト → shockカテゴリ有効化
+3. Phase 2: impact.py実装
+
+---
+
+## Session 8 — 2026-02-27 夜
 ### GitHub Actions本番稼働 + FMP collector実装
 
 **実施内容:**

@@ -1,7 +1,7 @@
 # Sector Event Radar — ファイルマップ（引き継ぎ用）
 
-日付: 2026-02-27
-リポジトリ: https://github.com/yukissssss/sector-event-radar (private)
+日付: 2026-02-28
+リポジトリ: https://github.com/yukissssss/sector-event-radar (public)
 ローカル: ~/Documents/stock_analyzer/sector_event_radar/
 
 ---
@@ -12,7 +12,7 @@
 sector-event-radar/
 ├── .github/workflows/
 │   └── daily.yml              ← GitHub Actions定義
-├── docs/ics/                  ← ICS出力先（Actionsが自動commit）
+├── docs/ics/                  ← ICS出力先（Actionsが自動commit → GitHub Pagesで配信）
 ├── src/sector_event_radar/    ← メインコード
 │   ├── collectors/            ← データ収集モジュール
 │   │   ├── rss.py
@@ -53,7 +53,7 @@ sector-event-radar/
 | `pyproject.toml` | Pythonパッケージ定義。`pip install -e .` で使う | ✅ |
 | `requirements.txt` | pip依存リスト（pydantic, pyyaml, requests） | ✅ |
 | `.gitignore` | .venv, __pycache__, events.sqlite, output等を除外 | ✅ |
-| `docs/ics/` | ICS出力先。Actionsが自動commitする。GitHub Pages公開候補 | ✅ |
+| `docs/ics/` | ICS出力先。Actionsが自動commitする。**GitHub Pagesで配信中** | ✅ 配信中 |
 | `docs/handoff/project_progress_log.md` | 累積型進捗ログ。セッションごとに先頭に新エントリを追記。全経緯の一次情報源 | ✅ |
 | `docs/handoff/chat_handoff_memo.md` | 新しいClaude/GPTチャットにコピペで文脈復元する凝縮版 | ✅ |
 | `docs/handoff/file_map_handoff.md` | 本ファイル。全ファイルの役割・場所・実装状態一覧 | ✅ |
@@ -63,7 +63,7 @@ sector-event-radar/
 
 | ファイル | 役割 | 状態 |
 |---------|------|------|
-| `run_daily.py` | **エントリポイント**。3つのcollector(scheduled/computed/unscheduled)を独立try/exceptで実行→upsert→ICS生成。部分失敗設計：どのcollectorが落ちてもICS生成まで到達する。`--dry-run`でClaude抽出スキップ | ✅ Phase 1書き直し済み |
+| `run_daily.py` | **エントリポイント**。3つのcollector(scheduled/computed/unscheduled)を独立try/exceptで実行→upsert→ICS生成。部分失敗設計：どのcollectorが落ちてもICS生成まで到達する。**全カテゴリのICSを常に出力（0件でも空ICS生成）**。`--dry-run`でClaude抽出スキップ | ✅ Session 9で0件修正済み |
 | `config.py` | AppConfigクラス。config.yamlを読み込んでPydanticモデルに変換。`bellwether_tickers`, `te_country`, `te_importance`もここで管理 | ✅ |
 | `models.py` | Event / Article / ImpactSummary等のPydanticモデル定義。Eventが全モジュール共通のデータ構造 | ✅ GPTスケルトン流用 |
 
@@ -71,7 +71,7 @@ sector-event-radar/
 
 | ファイル | 役割 | 状態 |
 |---------|------|------|
-| `collectors/scheduled.py` | **TE + FMP API実装**。`fetch_tradingeconomics_events()`: TE Economic Calendar→macroイベント。`fetch_fmp_earnings_events()`: FMP Earnings Calendar→bellwetherイベント。TEカテゴリフィルタ(30+指標)、FMP 3ヶ月チャンク分割、bellwetherティッカーフィルタ | ✅ 本セッションで実装 |
+| `collectors/scheduled.py` | **TE + FMP API実装**。`fetch_tradingeconomics_events()`: TE Economic Calendar→macroイベント（スキップ中）。`fetch_fmp_earnings_events()`: FMP Earnings Calendar→bellwetherイベント（稼働中）。次の実装対象: `fetch_fmp_macro_events()` でFMP Economic Calendarからmacro指標を取得 | ✅ bellwether稼働 / macro未実装 |
 | `collectors/rss.py` | RSS/Atomフィード取得。feedparser不要の軽量XMLパーサー。RSS2 + Atom両対応 | ✅ GPTスケルトン流用 |
 
 ### 処理パイプライン
@@ -120,9 +120,9 @@ sector-event-radar/
 | Secret名 | 用途 | 状態 |
 |----------|------|------|
 | `GITHUB_TOKEN` | Actions→Releases/commit用（自動提供） | ✅ 自動 |
-| `FMP_API_KEY` | FMP Earnings Calendar API | ✅ 登録済み |
+| `FMP_API_KEY` | FMP Earnings Calendar API（+ 将来Economic Calendar） | ✅ 登録済み |
 | `TE_API_KEY` | TE Economic Calendar API | ❌ Freeプラン制限で未登録 |
-| `ANTHROPIC_API_KEY` | Claude抽出器 | ❌ 未登録（Phase 2で追加）|
+| `ANTHROPIC_API_KEY` | Claude抽出器 | ❌ 未登録（Step 3で追加）|
 
 ---
 
@@ -131,24 +131,29 @@ sector-event-radar/
 ```
 毎朝07:05 JST (GitHub Actions)
   │
-  ├─ FMP API ──→ bellwether決算日(9銘柄) ──┐
-  ├─ OPEX計算 ──→ 第3金曜(6ヶ月分) ───────┤
-  ├─ TE API ──→ (スキップ中) ──────────────┤
-  └─ RSS→Claude ──→ (未有効) ──────────────┤
-                                            │
-                    canonical_key生成 ←──────┘
+  ├─ FMP Earnings API ──→ bellwether決算日(9銘柄) ──┐
+  ├─ OPEX計算 ──→ 第3金曜(6ヶ月分) ────────────────┤
+  ├─ FMP Economic API ──→ (未実装) ─────────────────┤
+  ├─ TE API ──→ (スキップ中) ───────────────────────┤
+  └─ RSS→Claude ──→ (未有効) ───────────────────────┤
+                                                     │
+                    canonical_key生成 ←───────────────┘
                          │
                     validate_event
                          │
                     upsert_event (SQLite)
                          │
-                    events_to_ics
+                    events_to_ics（全カテゴリ常に出力）
                          │
-              ┌──────────┼──────────┐
-              │          │          │
-         all.ics    flows.ics  bellwether.ics
-              │
+              ┌──────┬───┼───┬──────┐
+              │      │   │   │      │
+         all.ics flows bellwether macro shock
+              │      （全5ファイル）
          docs/ics/ にcommit
+              │
+         GitHub Pages で配信
+              │
+         iPhoneカレンダー購読
               │
          GitHub Releases に events.sqlite 保存
 ```
