@@ -270,8 +270,6 @@ def _generate_ics_files(conn, ics_dir: str, now: datetime) -> None:
     for category, filename in CATEGORY_ICS_MAP.items():
         try:
             cat_events = [e for e in all_events if e.category == category]
-            if not cat_events:
-                continue
             ics_cat = events_to_ics(cat_events, cal_name=f"SER - {category}")
             out_cat = ics_path / filename
             out_cat.write_text(ics_cat, encoding="utf-8")
