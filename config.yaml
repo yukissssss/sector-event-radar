@@ -79,3 +79,56 @@ fomc_dates:
   - '2026-09-16'
   - '2026-10-28'
   - '2026-12-09'
+
+# BLS static schedule — fallback for GitHub Actions IP block (bls.gov 403)
+# Source: https://www.whitehouse.gov/wp-content/uploads/2025/09/pfei_schedule_release_dates_cy2026.pdf
+# All releases at 08:30 ET
+# Set bls_mode to "ics" to try .ics/.html first, "static" to skip HTTP entirely
+bls_mode: static
+
+bls_static:
+  timezone: "America/New_York"
+  default_time: "08:30"
+  source_url: "https://www.bls.gov/schedule/news_release/"
+  last_verified: "2026-02-28"
+  years:
+    "2026":
+      cpi:
+        - "2026-01-13"
+        - "2026-02-11"
+        - "2026-03-11"
+        - "2026-04-10"
+        - "2026-05-12"
+        - "2026-06-10"
+        - "2026-07-14"
+        - "2026-08-12"
+        - "2026-09-11"
+        - "2026-10-14"
+        - "2026-11-10"
+        - "2026-12-10"
+      nfp:
+        - "2026-01-09"
+        - "2026-02-06"
+        - "2026-03-06"
+        - "2026-04-03"
+        - "2026-05-08"
+        - "2026-06-05"
+        - "2026-07-02"
+        - "2026-08-07"
+        - "2026-09-04"
+        - "2026-10-02"
+        - "2026-11-06"
+        - "2026-12-04"
+      ppi:
+        - "2026-01-14"
+        - "2026-02-12"
+        - "2026-03-12"
+        - "2026-04-14"
+        - "2026-05-13"
+        - "2026-06-11"
+        - "2026-07-15"
+        - "2026-08-13"
+        - "2026-09-10"
+        - "2026-10-15"
+        - "2026-11-13"
+        - "2026-12-15"

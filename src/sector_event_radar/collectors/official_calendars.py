@@ -478,6 +478,96 @@ def fetch_bls_html_events(
     return events
 
 
+# ── BLS static YAML ──────────────────────────────────────
+
+_BLS_TITLE_MAP: Dict[str, str] = {
+    "cpi": "Consumer Price Index",
+    "nfp": "Employment Situation",
+    "ppi": "Producer Price Index",
+}
+
+_BLS_SOURCE_URL_MAP: Dict[str, str] = {
+    "cpi": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "nfp": "https://www.bls.gov/schedule/news_release/empsit.htm",
+    "ppi": "https://www.bls.gov/schedule/news_release/ppi.htm",
+}
+
+
+def generate_bls_static_events(
+    bls_static: Dict,
+    start: datetime,
+    end: datetime,
+) -> List[Event]:
+    """Generate BLS events from static date config (YAML).
+
+    Args:
+        bls_static: dict with timezone, default_time, years.{year}.{sub_type}
+        start: filter start
+        end: filter end
+    """
+    tz_name = bls_static.get("timezone", "America/New_York")
+    tz = ZoneInfo(tz_name)
+    default_time = bls_static.get("default_time", "08:30")
+    hour, minute = (int(x) for x in default_time.split(":"))
+
+    years_data = bls_static.get("years", {})
+    events: List[Event] = []
+    counts: Dict[str, int] = {}
+
+    for year_str, indicators in years_data.items():
+        for sub_type, dates in indicators.items():
+            title = _BLS_TITLE_MAP.get(sub_type, sub_type.upper())
+            source_url = _BLS_SOURCE_URL_MAP.get(sub_type, "https://www.bls.gov/schedule/")
+            risk = _RISK_BY_SUBTYPE.get(sub_type, 35)
+
+            for date_str in dates:
+                try:
+                    dt = datetime.strptime(date_str, "%Y-%m-%d")
+                    dt = dt.replace(hour=hour, minute=minute, tzinfo=tz)
+                except (ValueError, TypeError) as e:
+                    logger.warning("BLS static: invalid date '%s': %s", date_str, e)
+                    continue
+
+                if dt < start or dt > end:
+                    continue
+
+                ev = Event(
+                    canonical_key=None,
+                    title=title,
+                    start_at=dt,
+                    end_at=None,
+                    category="macro",
+                    sector_tags=[],
+                    risk_score=risk,
+                    confidence=1.0,
+                    source_name="bls",
+                    source_url=source_url,
+                    source_id=f"bls:{sub_type}:{date_str}",
+                    evidence=f"BLS static: {title}, {dt.strftime('%Y-%m-%d %H:%M %Z')}",
+                    action="add",
+                )
+                events.append(ev)
+                counts[sub_type] = counts.get(sub_type, 0) + 1
+
+    # Observability: warn if any indicator has 0 events in range
+    for sub_type in _BLS_TITLE_MAP:
+        if counts.get(sub_type, 0) == 0:
+            logger.warning(
+                "BLS static: %s has 0 events in range %s — %s. "
+                "Check bls_static.years config for current year.",
+                sub_type.upper(),
+                start.strftime("%Y-%m-%d"),
+                end.strftime("%Y-%m-%d"),
+            )
+
+    logger.info(
+        "BLS static: %d events (%s)",
+        len(events),
+        ", ".join(f"{k}={v}" for k, v in sorted(counts.items())),
+    )
+    return events
+
+
 def fetch_official_macro_events(
     cfg: AppConfig,
     start: datetime,
@@ -491,17 +581,37 @@ def fetch_official_macro_events(
     events: List[Event] = []
     errors: List[str] = []
 
-    # BLS (try .ics first, fall back to HTML schedule pages)
-    try:
-        bls = fetch_ics_macro_events(BLS_ICS_URL, "bls", cfg, start, end)
-        events.extend(bls)
-    except Exception as e:
-        logger.warning("BLS .ics failed: %s — trying HTML fallback", e)
+    # BLS — mode-based dispatch
+    bls_mode = getattr(cfg, 'bls_mode', 'static')
+
+    if bls_mode == "ics":
+        # Try .ics first, fall back to HTML, then static
         try:
-            bls = fetch_bls_html_events(start, end)
+            bls = fetch_ics_macro_events(BLS_ICS_URL, "bls", cfg, start, end)
             events.extend(bls)
-        except Exception as e2:
-            msg = f"BLS collector failed (both .ics and HTML): {e2}"
+        except Exception as e:
+            logger.warning("BLS .ics failed: %s — trying HTML fallback", e)
+            try:
+                bls = fetch_bls_html_events(start, end)
+                events.extend(bls)
+            except Exception as e2:
+                logger.warning("BLS HTML fallback also failed: %s — falling back to static", e2)
+                bls_static = getattr(cfg, 'bls_static', None)
+                if bls_static:
+                    bls = generate_bls_static_events(bls_static, start, end)
+                    events.extend(bls)
+                else:
+                    msg = "BLS collector failed (ics/html/static all unavailable)"
+                    logger.warning(msg)
+                    errors.append(msg)
+    else:
+        # Static mode: skip HTTP entirely (GitHub Actions IP blocked)
+        bls_static = getattr(cfg, 'bls_static', None)
+        if bls_static:
+            bls = generate_bls_static_events(bls_static, start, end)
+            events.extend(bls)
+        else:
+            msg = "BLS static mode but no bls_static config found"
             logger.warning(msg)
             errors.append(msg)
 

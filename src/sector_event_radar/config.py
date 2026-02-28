@@ -40,6 +40,8 @@ class AppConfig(BaseModel):
     te_country: str = "united states"
     te_importance: int = 3
     fomc_dates: List[str] = Field(default_factory=list)
+    bls_mode: str = "static"
+    bls_static: Optional[Dict[str, Any]] = None
 
     @classmethod
     def load(cls, path: str | Path) -> "AppConfig":

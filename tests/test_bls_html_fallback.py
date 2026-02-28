@@ -166,8 +166,8 @@ class TestBLSFallbackIntegration:
     @patch("sector_event_radar.collectors.official_calendars.fetch_ics_macro_events")
     @patch("sector_event_radar.collectors.official_calendars.fetch_bls_html_events")
     @patch("sector_event_radar.collectors.official_calendars.generate_fomc_events")
-    def test_ics_403_triggers_html_fallback(self, mock_fomc, mock_html, mock_ics):
-        """When .ics returns 403 for BLS, HTML fallback should be called."""
+    def test_ics_mode_403_triggers_html_fallback(self, mock_fomc, mock_html, mock_ics):
+        """When bls_mode=ics and .ics returns 403, HTML fallback should be called."""
         from requests.exceptions import HTTPError
 
         # BLS .ics fails (first call), BEA .ics succeeds (second call)
@@ -176,6 +176,8 @@ class TestBLSFallbackIntegration:
         mock_fomc.return_value = []
 
         cfg = MagicMock()
+        cfg.bls_mode = "ics"
+        cfg.bls_static = None
         cfg.fomc_dates = []
         start = datetime(2026, 2, 28, tzinfo=ET)
         end = datetime(2026, 8, 28, tzinfo=ET)
@@ -183,18 +185,19 @@ class TestBLSFallbackIntegration:
         events, errors = fetch_official_macro_events(cfg, start, end)
 
         mock_html.assert_called_once_with(start, end)
-        # No error in errors list if HTML fallback succeeded
-        assert len(errors) == 0
+        bls_errors = [e for e in errors if "BLS" in e]
+        assert len(bls_errors) == 0
 
     @patch("sector_event_radar.collectors.official_calendars.fetch_ics_macro_events")
     @patch("sector_event_radar.collectors.official_calendars.fetch_bls_html_events")
     @patch("sector_event_radar.collectors.official_calendars.generate_fomc_events")
-    def test_ics_success_skips_html(self, mock_fomc, mock_html, mock_ics):
-        """When .ics succeeds, HTML fallback should NOT be called."""
+    def test_ics_mode_success_skips_html(self, mock_fomc, mock_html, mock_ics):
+        """When bls_mode=ics and .ics succeeds, HTML fallback should NOT be called."""
         mock_ics.return_value = []
         mock_fomc.return_value = []
 
         cfg = MagicMock()
+        cfg.bls_mode = "ics"
         cfg.fomc_dates = []
         start = datetime(2026, 2, 28, tzinfo=ET)
         end = datetime(2026, 8, 28, tzinfo=ET)
@@ -206,18 +209,167 @@ class TestBLSFallbackIntegration:
     @patch("sector_event_radar.collectors.official_calendars.fetch_ics_macro_events")
     @patch("sector_event_radar.collectors.official_calendars.fetch_bls_html_events")
     @patch("sector_event_radar.collectors.official_calendars.generate_fomc_events")
-    def test_both_fail_records_error(self, mock_fomc, mock_html, mock_ics):
-        """When both .ics and HTML fail, error is recorded."""
+    def test_ics_mode_both_fail_falls_back_to_static(self, mock_fomc, mock_html, mock_ics):
+        """When bls_mode=ics and both .ics and HTML fail, static fallback is used."""
         from requests.exceptions import HTTPError
-        mock_ics.side_effect = HTTPError("403")
+        mock_ics.side_effect = [HTTPError("403"), []]  # BLS fails, BEA succeeds
         mock_html.side_effect = ConnectionError("all pages blocked")
         mock_fomc.return_value = []
 
         cfg = MagicMock()
+        cfg.bls_mode = "ics"
+        cfg.bls_static = {
+            "timezone": "America/New_York",
+            "default_time": "08:30",
+            "years": {"2026": {"cpi": ["2026-03-11"]}}
+        }
         cfg.fomc_dates = []
         start = datetime(2026, 2, 28, tzinfo=ET)
         end = datetime(2026, 8, 28, tzinfo=ET)
 
         events, errors = fetch_official_macro_events(cfg, start, end)
 
-        assert any("both .ics and HTML" in e for e in errors)
+        assert any(ev.title == "Consumer Price Index" for ev in events)
+        bls_errors = [e for e in errors if "BLS" in e]
+        assert len(bls_errors) == 0
+
+    @patch("sector_event_radar.collectors.official_calendars.generate_fomc_events")
+    def test_static_mode_skips_http(self, mock_fomc):
+        """When bls_mode=static, no HTTP calls are made for BLS."""
+        mock_fomc.return_value = []
+
+        cfg = MagicMock()
+        cfg.bls_mode = "static"
+        cfg.bls_static = {
+            "timezone": "America/New_York",
+            "default_time": "08:30",
+            "years": {"2026": {
+                "cpi": ["2026-03-11", "2026-04-10"],
+                "nfp": ["2026-03-06"],
+                "ppi": ["2026-03-12"],
+            }}
+        }
+        cfg.fomc_dates = []
+        start = datetime(2026, 2, 28, tzinfo=ET)
+        end = datetime(2026, 8, 28, tzinfo=ET)
+
+        with patch("sector_event_radar.collectors.official_calendars.requests.get") as mock_get:
+            events, errors = fetch_official_macro_events(cfg, start, end)
+            # BLS should NOT make any HTTP calls in static mode
+            # (BEA still does, but BLS shouldn't)
+            bls_calls = [c for c in mock_get.call_args_list if "bls.gov" in str(c)]
+            assert len(bls_calls) == 0
+
+        bls_errors = [e for e in errors if "BLS" in e]
+        assert len(bls_errors) == 0
+        bls_events = [ev for ev in events if ev.source_name == "bls"]
+        assert len(bls_events) == 4
+
+    def test_static_mode_no_config_records_error(self):
+        """When bls_mode=static but no bls_static config, error is recorded."""
+        cfg = MagicMock()
+        cfg.bls_mode = "static"
+        cfg.bls_static = None
+        cfg.fomc_dates = []
+        start = datetime(2026, 2, 28, tzinfo=ET)
+        end = datetime(2026, 8, 28, tzinfo=ET)
+
+        with patch("sector_event_radar.collectors.official_calendars.fetch_ics_macro_events", return_value=[]):
+            events, errors = fetch_official_macro_events(cfg, start, end)
+
+        assert any("bls_static config" in e for e in errors)
+
+
+class TestGenerateBLSStaticEvents:
+
+    def test_basic_generation(self):
+        from sector_event_radar.collectors.official_calendars import generate_bls_static_events
+
+        bls_static = {
+            "timezone": "America/New_York",
+            "default_time": "08:30",
+            "years": {"2026": {
+                "cpi": ["2026-03-11", "2026-04-10"],
+                "nfp": ["2026-03-06"],
+            }}
+        }
+        start = datetime(2026, 2, 28, tzinfo=ET)
+        end = datetime(2026, 8, 28, tzinfo=ET)
+
+        events = generate_bls_static_events(bls_static, start, end)
+
+        assert len(events) == 3
+        titles = {ev.title for ev in events}
+        assert "Consumer Price Index" in titles
+        assert "Employment Situation" in titles
+
+    def test_date_range_filter(self):
+        from sector_event_radar.collectors.official_calendars import generate_bls_static_events
+
+        bls_static = {
+            "timezone": "America/New_York",
+            "default_time": "08:30",
+            "years": {"2026": {
+                "cpi": ["2026-01-13", "2026-03-11", "2026-04-10"],
+            }}
+        }
+        # Only Mar-Apr
+        start = datetime(2026, 3, 1, tzinfo=ET)
+        end = datetime(2026, 4, 30, tzinfo=ET)
+
+        events = generate_bls_static_events(bls_static, start, end)
+
+        assert len(events) == 2
+        dates = [ev.start_at.strftime("%m-%d") for ev in events]
+        assert "03-11" in dates
+        assert "04-10" in dates
+
+    def test_time_is_830_et(self):
+        from sector_event_radar.collectors.official_calendars import generate_bls_static_events
+
+        bls_static = {
+            "timezone": "America/New_York",
+            "default_time": "08:30",
+            "years": {"2026": {"cpi": ["2026-03-11"]}}
+        }
+        start = datetime(2026, 2, 28, tzinfo=ET)
+        end = datetime(2026, 8, 28, tzinfo=ET)
+
+        events = generate_bls_static_events(bls_static, start, end)
+
+        assert events[0].start_at.hour == 8
+        assert events[0].start_at.minute == 30
+        assert str(events[0].start_at.tzinfo) == "America/New_York"
+
+    def test_source_fields(self):
+        from sector_event_radar.collectors.official_calendars import generate_bls_static_events
+
+        bls_static = {
+            "timezone": "America/New_York",
+            "default_time": "08:30",
+            "years": {"2026": {"nfp": ["2026-03-06"]}}
+        }
+        start = datetime(2026, 2, 28, tzinfo=ET)
+        end = datetime(2026, 8, 28, tzinfo=ET)
+
+        events = generate_bls_static_events(bls_static, start, end)
+
+        ev = events[0]
+        assert ev.source_name == "bls"
+        assert ev.category == "macro"
+        assert ev.confidence == 1.0
+        assert "empsit" in str(ev.source_url)
+
+    def test_empty_years(self):
+        from sector_event_radar.collectors.official_calendars import generate_bls_static_events
+
+        bls_static = {
+            "timezone": "America/New_York",
+            "default_time": "08:30",
+            "years": {}
+        }
+        start = datetime(2026, 2, 28, tzinfo=ET)
+        end = datetime(2026, 8, 28, tzinfo=ET)
+
+        events = generate_bls_static_events(bls_static, start, end)
+        assert len(events) == 0

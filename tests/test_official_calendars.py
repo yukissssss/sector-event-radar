@@ -116,6 +116,7 @@ def cfg():
             '(?i)Personal Income and Outlays': {'entity': 'us', 'sub_type': 'pce'},
         },
         fomc_dates=['2026-03-18', '2026-04-29', '2026-06-17'],
+        bls_mode="ics",
     )
 
 
@@ -524,7 +525,7 @@ class TestFetchOfficialMacroEvents:
         with patch("src.sector_event_radar.collectors.official_calendars.requests.get", side_effect=mock_get):
             events, errors = fetch_official_macro_events(cfg, start, end)
 
-        # BEA: 2 + FOMC: 3 (BLS failed)
+        # BEA: 2 + FOMC: 3 (BLS failed through ics→html→no static)
         assert len(events) == 5
         assert len(errors) == 0
 
@@ -535,6 +536,7 @@ class TestFetchOfficialMacroEvents:
                 '(?i)Consumer Price Index': {'entity': 'us', 'sub_type': 'cpi'},
             },
             fomc_dates=[],
+            bls_mode="ics",
         )
         start = datetime(2026, 3, 1, tzinfo=UTC)
         end = datetime(2026, 6, 30, tzinfo=UTC)
