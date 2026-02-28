@@ -131,7 +131,7 @@ def fetch_tradingeconomics_events(
 
 # ── FMP: Financial Modeling Prep ─────────────────────────
 
-FMP_BASE = "https://financialmodelingprep.com/api/v3"
+FMP_BASE = "https://financialmodelingprep.com/stable"
 
 
 def _fmp_time_to_risk(time_str: str) -> int:
@@ -161,7 +161,7 @@ def fetch_fmp_earnings_events(
         chunk_start_str = cursor.strftime("%Y-%m-%d")
         chunk_end_str = chunk_end.strftime("%Y-%m-%d")
 
-        url = f"{FMP_BASE}/earning_calendar"
+        url = f"{FMP_BASE}/earnings-calendar"
         params = {
             "from": chunk_start_str,
             "to": chunk_end_str,
@@ -307,7 +307,7 @@ def fetch_fmp_macro_events(
         chunk_start_str = cursor.strftime("%Y-%m-%d")
         chunk_end_str = chunk_end.strftime("%Y-%m-%d")
 
-        url = f"{FMP_BASE}/economic_calendar"
+        url = f"{FMP_BASE}/economic-calendar"
         params = {
             "from": chunk_start_str,
             "to": chunk_end_str,
