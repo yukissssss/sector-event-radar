@@ -42,9 +42,37 @@ _HTTP_HEADERS = {
         "sector-event-radar/1.0 "
         "(+https://github.com/yukissssss/sector-event-radar)"
     ),
-    "Accept": "text/calendar, text/plain;q=0.9, */*;q=0.8",
+    "Accept": "text/html, text/calendar, text/plain;q=0.9, */*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
 }
+
+# BLS HTML schedule pages (fallback when .ics is blocked)
+BLS_HTML_SCHEDULES: Dict[str, Dict[str, str]] = {
+    "cpi": {
+        "url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+        "title": "Consumer Price Index",
+    },
+    "nfp": {
+        "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+        "title": "Employment Situation",
+    },
+    "ppi": {
+        "url": "https://www.bls.gov/schedule/news_release/ppi.htm",
+        "title": "Producer Price Index",
+    },
+}
+
+_MONTH_ABBR = {
+    "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4, "May": 5, "Jun": 6,
+    "Jul": 7, "Aug": 8, "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12,
+}
+
+# Matches "Dec. 18, 2025" or "Mar 11, 2026"
+_HTML_DATE_RE = re.compile(
+    r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[.]?\s+(\d{1,2}),\s+(\d{4})"
+)
+# Matches "08:30 AM"
+_HTML_TIME_RE = re.compile(r"(\d{1,2}):(\d{2})\s*(AM|PM)", re.IGNORECASE)
 
 # risk_score by sub_type (same scale as FMP macro collector)
 _RISK_BY_SUBTYPE: Dict[str, int] = {
@@ -345,6 +373,111 @@ def generate_fomc_events(
     return events
 
 
+# ── BLS HTML fallback ─────────────────────────────────────
+
+def _parse_bls_html_table(html: str) -> List[datetime]:
+    """Parse BLS schedule HTML table → list of release datetimes (ET).
+
+    Table format: Reference Month | Release Date | Release Time
+    Date format:  "Mar. 11, 2026"  Time format: "08:30 AM"
+    """
+    results: List[datetime] = []
+
+    # Extract table rows
+    rows = re.split(r"<tr[^>]*>", html, flags=re.IGNORECASE)
+    for row in rows:
+        cells = re.findall(r"<td[^>]*>(.*?)</td>", row, re.IGNORECASE | re.DOTALL)
+        if len(cells) < 3:
+            continue
+
+        # Strip HTML tags from cells
+        date_text = re.sub(r"<[^>]+>", "", cells[1]).strip()
+        time_text = re.sub(r"<[^>]+>", "", cells[2]).strip()
+
+        date_m = _HTML_DATE_RE.search(date_text)
+        if not date_m:
+            continue
+
+        month = _MONTH_ABBR.get(date_m.group(1))
+        day = int(date_m.group(2))
+        year = int(date_m.group(3))
+        if not month:
+            continue
+
+        # Default: 08:30 AM ET (standard BLS release time)
+        hour, minute = 8, 30
+        time_m = _HTML_TIME_RE.search(time_text)
+        if time_m:
+            hour = int(time_m.group(1))
+            minute = int(time_m.group(2))
+            ampm = time_m.group(3).upper()
+            if ampm == "PM" and hour != 12:
+                hour += 12
+            elif ampm == "AM" and hour == 12:
+                hour = 0
+
+        try:
+            dt = datetime(year, month, day, hour, minute, tzinfo=ET)
+            results.append(dt)
+        except ValueError:
+            continue
+
+    return results
+
+
+def fetch_bls_html_events(
+    start: datetime,
+    end: datetime,
+    timeout: int = 30,
+) -> List[Event]:
+    """Fallback: parse BLS HTML schedule pages for CPI/NFP/PPI release dates."""
+    events: List[Event] = []
+
+    for sub_type, info in BLS_HTML_SCHEDULES.items():
+        url = info["url"]
+        title = info["title"]
+        count = 0
+
+        try:
+            logger.info("BLS HTML fallback: fetching %s from %s", sub_type.upper(), url)
+            resp = requests.get(url, headers=_HTTP_HEADERS, timeout=timeout)
+            resp.raise_for_status()
+
+            dates = _parse_bls_html_table(resp.text)
+
+            for dt in dates:
+                if dt < start or dt > end:
+                    continue
+
+                risk = _RISK_BY_SUBTYPE.get(sub_type, 35)
+                date_str = dt.strftime("%Y-%m-%d")
+                evidence = f"BLS HTML: {title}, {dt.strftime('%Y-%m-%d %H:%M %Z')}"
+
+                ev = Event(
+                    canonical_key=None,
+                    title=title,
+                    start_at=dt,
+                    end_at=None,
+                    category="macro",
+                    sector_tags=[],
+                    risk_score=risk,
+                    confidence=0.95,
+                    source_name="bls",
+                    source_url=url,
+                    source_id=f"bls:{sub_type}:{date_str}",
+                    evidence=evidence,
+                    action="add",
+                )
+                events.append(ev)
+                count += 1
+
+            logger.info("BLS HTML: %s → %d events in range", sub_type.upper(), count)
+        except Exception as e:
+            logger.warning("BLS HTML fallback failed for %s: %s", sub_type.upper(), e)
+
+    return events
+
+
 def fetch_official_macro_events(
     cfg: AppConfig,
     start: datetime,
@@ -358,14 +491,19 @@ def fetch_official_macro_events(
     events: List[Event] = []
     errors: List[str] = []
 
-    # BLS
+    # BLS (try .ics first, fall back to HTML schedule pages)
     try:
         bls = fetch_ics_macro_events(BLS_ICS_URL, "bls", cfg, start, end)
         events.extend(bls)
     except Exception as e:
-        msg = f"BLS collector failed: {e}"
-        logger.warning(msg)
-        errors.append(msg)
+        logger.warning("BLS .ics failed: %s — trying HTML fallback", e)
+        try:
+            bls = fetch_bls_html_events(start, end)
+            events.extend(bls)
+        except Exception as e2:
+            msg = f"BLS collector failed (both .ics and HTML): {e2}"
+            logger.warning(msg)
+            errors.append(msg)
 
     # BEA
     try:

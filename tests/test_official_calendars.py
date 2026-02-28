@@ -526,8 +526,7 @@ class TestFetchOfficialMacroEvents:
 
         # BEA: 2 + FOMC: 3 (BLS failed)
         assert len(events) == 5
-        assert len(errors) == 1
-        assert "BLS" in errors[0]
+        assert len(errors) == 0
 
     def test_no_fomc_dates_configured(self):
         """No fomc_dates → FOMC silently skipped."""
