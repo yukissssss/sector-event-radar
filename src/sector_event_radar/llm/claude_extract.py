@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import logging
 import os
 import time
@@ -217,9 +218,15 @@ def extract_events_from_article(
 
         events: List[Event] = []
         for raw in raw_events:
+            # source_id をイベント単位でユニークにする。
+            # 1記事→複数イベント時にevent_sourcesの(source_name, source_id)主キーが
+            # 衝突して最後のイベントだけ残る事故を防止。
+            ev_title = raw.get("title", "")
+            ev_start = raw.get("start_at", "")
+            ev_hash = hashlib.sha256(f"{ev_title}:{ev_start}".encode()).hexdigest()[:8]
             raw.setdefault("source_name", "claude_extract")
             raw.setdefault("source_url", article_url)
-            raw.setdefault("source_id", f"claude:{article_url}")
+            raw.setdefault("source_id", f"claude:{article_url}#{ev_hash}")
             raw.setdefault("end_at", None)
             try:
                 ev = Event.model_validate(raw)

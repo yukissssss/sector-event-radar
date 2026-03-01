@@ -22,6 +22,13 @@ class MacroTitleRule(BaseModel):
 class RssSource(BaseModel):
     name: str
     url: str
+    disabled: bool = False  # disabled: true でRSS取得をスキップ
+
+
+class LlmConfig(BaseModel):
+    """Claude抽出のコスト・安全ガードレール"""
+    max_articles_per_run: int = 10  # 1回のrun_dailyでClaude APIに送る最大記事数
+    model: str = "claude-haiku-4-5-20241022"
 
 
 class SourcesConfig(BaseModel):
@@ -42,6 +49,7 @@ class AppConfig(BaseModel):
     fomc_dates: List[str] = Field(default_factory=list)
     bls_mode: str = "static"
     bls_static: Optional[Dict[str, Any]] = None
+    llm: LlmConfig = Field(default_factory=LlmConfig)
 
     @classmethod
     def load(cls, path: str | Path) -> "AppConfig":

@@ -6,6 +6,14 @@ from uuid import uuid4
 
 from .models import Event
 
+# ── カテゴリ → iPhoneカレンダー表示用プレフィックス ──
+CATEGORY_PREFIX = {
+    "macro": "[MACRO]",
+    "bellwether": "[BW]",
+    "flows": "[FLOW]",
+    "shock": "[SHOCK]",
+}
+
 
 def _fmt_utc(dt: datetime) -> str:
     # RFC5545 basic format
@@ -63,6 +71,45 @@ def _fold_line(line: str) -> str:
     return "\r\n".join(parts)
 
 
+def _format_summary(ev: Event) -> str:
+    """カテゴリプレフィックス付きタイトルを生成。
+    例: [MACRO] US CPI, [BW] NVDA Earnings, [SHOCK] Export Controls
+    """
+    prefix = CATEGORY_PREFIX.get(ev.category, f"[{ev.category.upper()}]")
+    return f"{prefix} {ev.title}"
+
+
+def _format_description(ev: Event) -> str:
+    """iPhoneカレンダーで「何が・どの程度重要で・どこソースか」が即わかる定型DESCRIPTION。
+
+    フォーマット:
+        Risk: 50/100 | Confidence: 0.80
+        Tags: NVDA, semis
+        Source: https://example.com/...
+        ---
+        Evidence: "effective March 15, 2026"
+    """
+    parts: List[str] = []
+
+    # 1行目: 重要度
+    parts.append(f"Risk: {ev.risk_score}/100 | Confidence: {ev.confidence:.2f}")
+
+    # 2行目: タグ
+    if ev.sector_tags:
+        parts.append(f"Tags: {', '.join(ev.sector_tags)}")
+
+    # 3行目: ソースURL
+    if ev.source_url:
+        parts.append(f"Source: {ev.source_url}")
+
+    # 区切り + evidence
+    if hasattr(ev, "evidence") and ev.evidence and ev.evidence != "from database":
+        parts.append("---")
+        parts.append(f"Evidence: {ev.evidence}")
+
+    return "\n".join(parts)
+
+
 def events_to_ics(events: Iterable[Event], cal_name: str = "Sector Event Radar") -> str:
     now = datetime.now(timezone.utc)
     dtstamp = _fmt_utc(now)
@@ -78,15 +125,14 @@ def events_to_ics(events: Iterable[Event], cal_name: str = "Sector Event Radar")
         lines.append("BEGIN:VEVENT")
         lines.append(f"UID:{_escape(uid)}")
         lines.append(f"DTSTAMP:{dtstamp}")
-        lines.append(f"SUMMARY:{_escape(ev.title)}")
+        lines.append(f"SUMMARY:{_escape(_format_summary(ev))}")
         lines.append(f"DTSTART:{_fmt_utc(ev.start_at)}")
         if ev.end_at:
             lines.append(f"DTEND:{_fmt_utc(ev.end_at)}")
         if ev.source_url:
             lines.append(f"URL:{_escape(str(ev.source_url))}")
-        # evidence → DESCRIPTION
-        if hasattr(ev, "evidence") and ev.evidence and ev.evidence != "from database":
-            lines.append(f"DESCRIPTION:{_escape(ev.evidence)}")
+        # 定型DESCRIPTION
+        lines.append(f"DESCRIPTION:{_escape(_format_description(ev))}")
         # category / tags
         lines.append(f"CATEGORIES:{_escape(ev.category)}")
         if ev.sector_tags:

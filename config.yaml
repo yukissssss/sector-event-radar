@@ -51,8 +51,19 @@ sources:
   rss:
     - name: BIS Press Releases
       url: 'https://www.bis.doc.gov/index.php?option=com_content&view=category&id=218&Itemid=591&format=feed&type=rss'
+      disabled: true   # SSL証明書がGitHub Actionsから検証不可。代替ソース検討中
     - name: SemiEngineering
       url: 'https://semiengineering.com/feed/'
+      # 技術解説中心。イベント日は少ないが半導体全般のカバレッジとして維持
+    - name: EE Times
+      url: 'https://www.eetimes.com/feed/'
+      # 半導体専門メディア。輸出規制・M&A・新工場・ガイダンス修正などイベント性の高い記事が多い
+    - name: TrendForce Semiconductors
+      url: 'https://www.trendforce.com/feed/Semiconductors.html'
+      # 半導体市場分析。量産開始時期・四半期業績・価格改定など日付付き情報が豊富
+    - name: SIA Press Releases
+      url: 'https://www.semiconductors.org/feed/'
+      # 業界団体の公式発表。月次売上データ・政策声明・規制対応に明示日付あり
 
 bellwether_tickers:
   - NVDA
@@ -67,6 +78,11 @@ bellwether_tickers:
 
 te_country: 'united states'
 te_importance: 3
+
+# Claude抽出のコスト・安全ガードレール
+llm:
+  max_articles_per_run: 10   # 1日のClaude API呼び出し上限（記事数）
+  model: 'claude-haiku-4-5-20241022'
 
 # FOMC 2026 announcement dates (day 2 of each meeting, 14:00 ET)
 # Source: https://www.federalreserve.gov/newsevents/pressreleases/monetary20240809a.htm

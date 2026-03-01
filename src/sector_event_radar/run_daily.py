@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import logging
 import os
@@ -18,7 +19,7 @@ from typing import List, Tuple
 
 from .canonical import make_canonical_key
 from .config import AppConfig
-from .db import connect, init_db, upsert_event
+from .db import connect, init_db, upsert_event, is_article_seen, mark_article_seen
 from .flows import generate_opex_events
 from .ics import events_to_ics
 from .models import Article, Event
@@ -50,23 +51,40 @@ def _parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
+def _content_hash(title: str, body: str) -> str:
+    """記事のcontent hashを生成。articlesテーブルに記録用。
+    現在の既出判定はURL単位（コスト優先）。将来、内容変更で再処理したい場合は
+    is_article_seenでcontent_hashも比較する方式に切替え可能。"""
+    return hashlib.sha256(f"{title}\n{body}".encode()).hexdigest()[:16]
+
+
 def _list_events_from_db(conn, start: datetime, end: datetime) -> List[Event]:
-    """DBからactive eventsを取得してEvent objectに変換"""
+    """DBからactive eventsを取得してEvent objectに変換。
+    event_sourcesから最新のsource_url/evidenceもJOINで取得。"""
     cur = conn.execute(
         """
-        SELECT canonical_key, title, start_at, end_at, category,
-               sector_tags, risk_score, confidence, status
-          FROM events
-         WHERE status = 'active'
-           AND start_at >= ?
-           AND start_at <= ?
-         ORDER BY start_at ASC
+        SELECT e.canonical_key, e.title, e.start_at, e.end_at, e.category,
+               e.sector_tags, e.risk_score, e.confidence, e.status,
+               es.source_url, es.evidence
+          FROM events e
+          LEFT JOIN event_sources es
+            ON e.canonical_key = es.canonical_key
+           AND es.seen_at = (
+               SELECT MAX(es2.seen_at) FROM event_sources es2
+                WHERE es2.canonical_key = e.canonical_key
+           )
+         WHERE e.status = 'active'
+           AND e.start_at >= ?
+           AND e.start_at <= ?
+         ORDER BY e.start_at ASC
         """,
         (start.isoformat(), end.isoformat()),
     )
     rows = cur.fetchall()
     out: List[Event] = []
     for r in rows:
+        source_url = r["source_url"] if r["source_url"] else None
+        evidence = r["evidence"] if r["evidence"] else "from database"
         out.append(Event(
             canonical_key=r["canonical_key"],
             title=r["title"],
@@ -77,9 +95,9 @@ def _list_events_from_db(conn, start: datetime, end: datetime) -> List[Event]:
             risk_score=int(r["risk_score"]),
             confidence=float(r["confidence"]),
             source_name="db",
-            source_url=None,
+            source_url=source_url,
             source_id="db",
-            evidence="from database",
+            evidence=evidence,
             action="add",
         ))
     return out
@@ -163,19 +181,25 @@ def _collect_computed(now: datetime) -> Tuple[List[Event], List[str]]:
 
 
 def _collect_unscheduled(
-    cfg: AppConfig, now: datetime, dry_run: bool
+    cfg: AppConfig, conn, now: datetime, dry_run: bool
 ) -> Tuple[List[Event], List[str]]:
-    """Unscheduled: RSS → prefilter → Claude抽出。各段独立try/except。"""
+    """Unscheduled: RSS → 既出フィルタ → prefilter → Claude抽出。
+
+    各段独立try/except。観測ログを厚めに出力。
+    """
     events: List[Event] = []
     errors: List[str] = []
 
-    # 1) RSS取得
+    # 1) RSS取得（disabled対応）
     articles: List[Article] = []
     for src in cfg.sources.rss:
+        if src.disabled:
+            logger.info("RSS %s: SKIPPED (disabled)", src.name)
+            continue
         try:
             fetched = fetch_rss(src.url)
             articles.extend(fetched)
-            logger.info("RSS %s: %d articles", src.name, len(fetched))
+            logger.info("RSS %s: %d articles fetched", src.name, len(fetched))
         except Exception as e:
             msg = f"RSS {src.name} failed: {e}"
             logger.warning(msg)
@@ -185,22 +209,55 @@ def _collect_unscheduled(
         logger.info("No RSS articles fetched, skipping prefilter/extract")
         return events, errors
 
-    # 2) Prefilter
+    # 2) 既出記事フィルタ + 同一run内URL dedup
+    #    - DBチェック: 過去runで処理済みの記事をスキップ
+    #    - in-memory dedup: 複数RSSソースに同じURLが混ざった場合の二重課金を防止
+    new_articles: List[Article] = []
+    skipped_db_seen = 0
+    skipped_dup_in_run = 0
+    seen_in_run: set = set()
+    for a in articles:
+        if a.url in seen_in_run:
+            skipped_dup_in_run += 1
+            logger.debug("Duplicate URL in run skipped: '%s'", a.title[:80])
+            continue
+        if is_article_seen(conn, a.url):
+            skipped_db_seen += 1
+            seen_in_run.add(a.url)
+            logger.debug("Seen article skipped: '%s'", a.title[:80])
+            continue
+        seen_in_run.add(a.url)
+        new_articles.append(a)
+
+    logger.info(
+        "Seen filter: %d/%d articles are new (skipped: %d already-processed, %d duplicate-in-run)",
+        len(new_articles), len(articles), skipped_db_seen, skipped_dup_in_run,
+    )
+
+    if not new_articles:
+        logger.info("All articles already processed, skipping prefilter/extract")
+        return events, errors
+
+    # 3) Prefilter
     try:
         filtered = prefilter(
-            articles,
+            new_articles,
             keywords=cfg.keywords,
             stage_a_threshold=cfg.prefilter.stage_a_threshold,
             stage_b_top_k=cfg.prefilter.stage_b_top_k,
         )
-        logger.info("Prefilter: %d → %d articles", len(articles), len(filtered))
+        logger.info("Prefilter: %d → %d articles", len(new_articles), len(filtered))
     except Exception as e:
         msg = f"Prefilter failed: {e}"
         logger.warning(msg)
         errors.append(msg)
         return events, errors
 
-    # 3) Claude抽出
+    if not filtered:
+        logger.info("Prefilter: 0 articles passed, no Claude extraction needed")
+        return events, errors
+
+    # 4) Claude抽出
     if dry_run:
         logger.info("Dry-run: skipping Claude extraction for %d articles", len(filtered))
         return events, errors
@@ -212,8 +269,20 @@ def _collect_unscheduled(
         errors.append(msg)
         return events, errors
 
-    claude_cfg = ClaudeConfig(api_key=api_key)
+    max_articles = cfg.llm.max_articles_per_run
+    claude_cfg = ClaudeConfig(api_key=api_key, model=cfg.llm.model)
+
+    if len(filtered) > max_articles:
+        logger.warning(
+            "LLM guard: %d articles exceed limit (%d), processing top %d only",
+            len(filtered), max_articles, max_articles,
+        )
+        filtered = filtered[:max_articles]
+
+    llm_calls = 0
+    llm_events_total = 0
     for article in filtered:
+        extract_succeeded = False
         try:
             extracted = extract_events_from_article(
                 cfg=claude_cfg,
@@ -222,7 +291,15 @@ def _collect_unscheduled(
                 article_url=article.article.url,
                 article_content=article.article.body,
             )
+            llm_calls += 1
+            llm_events_total += len(extracted)
             events.extend(extracted)
+            extract_succeeded = True
+
+            logger.info(
+                "Claude extract: %d events from '%s'",
+                len(extracted), article.article.title[:60],
+            )
         except ClaudeExtractError as e:
             msg = f"Claude extract failed for '{article.article.title[:50]}': {e}"
             logger.warning(msg)
@@ -232,7 +309,23 @@ def _collect_unscheduled(
             logger.warning(msg)
             errors.append(msg)
 
-    logger.info("Claude: extracted %d events from %d articles", len(events), len(filtered))
+        # Claude APIが正常応答した場合のみ既出マーク。
+        # API例外（429/529リトライ尽き、timeout等）は翌日自動再試行される。
+        if extract_succeeded:
+            try:
+                mark_article_seen(
+                    conn,
+                    url=article.article.url,
+                    content_hash=_content_hash(article.article.title, article.article.body),
+                    relevance_score=article.relevance_score,
+                )
+            except Exception as e:
+                logger.warning("Failed to mark article as seen: %s", e)
+
+    logger.info(
+        "Claude summary: %d API calls, %d events extracted from %d articles",
+        llm_calls, llm_events_total, len(filtered),
+    )
     return events, errors
 
 
@@ -319,7 +412,7 @@ def run_daily(config_path: str, db_path: str, ics_dir: str, dry_run: bool = Fals
     all_events.extend(computed)
     all_errors.extend(errs)
 
-    unscheduled, errs = _collect_unscheduled(cfg, now, dry_run)
+    unscheduled, errs = _collect_unscheduled(cfg, conn, now, dry_run)
     all_events.extend(unscheduled)
     all_errors.extend(errs)
 
