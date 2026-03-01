@@ -86,9 +86,6 @@ macro_title_map:
 
 sources:
   rss:
-    - name: BIS Press Releases
-      url: 'https://www.bis.doc.gov/index.php?option=com_content&view=category&id=218&Itemid=591&format=feed&type=rss'
-      disabled: true   # SSL証明書がGitHub Actionsから検証不可。代替ソース検討中
     - name: SemiEngineering
       url: 'https://semiengineering.com/feed/'
       # 技術解説中心。イベント日は少ないが半導体全般のカバレッジとして維持

@@ -28,6 +28,7 @@ from .validate import validate_event
 from .collectors.rss import fetch_rss
 from .collectors.scheduled import fetch_tradingeconomics_events, fetch_fmp_earnings_events
 from .collectors.official_calendars import fetch_official_macro_events
+from .collectors.federal_register import fetch_federal_register_bis_events
 from .llm.claude_extract import ClaudeConfig, extract_events_from_article, ClaudeExtractError
 
 logger = logging.getLogger(__name__)
@@ -155,6 +156,17 @@ def _collect_scheduled(cfg: AppConfig, now: datetime) -> Tuple[List[Event], List
         logger.info("Official macro: collected %d events", len(official_events))
     except Exception as e:
         msg = f"Official macro collector failed: {e}"
+        logger.warning(msg)
+        errors.append(msg)
+
+    # Federal Register BIS (export controls — structured API, no LLM needed)
+    try:
+        fr_events, fr_errs = fetch_federal_register_bis_events(start_str, end_str)
+        events.extend(fr_events)
+        errors.extend(fr_errs)
+        logger.info("Federal Register BIS: collected %d events", len(fr_events))
+    except Exception as e:
+        msg = f"Federal Register BIS collector failed: {e}"
         logger.warning(msg)
         errors.append(msg)
 
