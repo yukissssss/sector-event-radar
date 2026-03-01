@@ -100,7 +100,7 @@ sources:
       # 半導体市場分析。量産開始時期・四半期業績・価格改定など日付付き情報が豊富
     - name: SIA Press Releases
       url: 'https://www.semiconductors.org/feed/'
-      disabled: true   # XMLパースエラー。フィード形式の調査が必要
+      # feedparser導入で復旧 (Session 16 Task C)
 
 bellwether_tickers:
   - NVDA
