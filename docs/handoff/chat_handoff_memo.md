@@ -1,93 +1,88 @@
 # Sector Event Radar — チャット引き継ぎメモ
 
-> 新しいClaude/GPTチャットに貼り付けて文脈を復元する用。
-> 詳細は project_progress_log.md と file_map_handoff.md を参照。
+> これ1枚を新しいClaude/GPTチャットに貼れば文脈が復元できる。
+> 経緯の詳細は `project_progress_log.md`、GPTへの相談は `gpt_report_*.md` を参照。
 
 ---
 
 ## プロジェクト概要
 
-MR-LS（Mean Reversion Long-Short、日米株式）の補助ツール。
-半導体セクターのイベント（CPI/FOMC/OPEX/決算/輸出規制等）を自動収集し、iPhoneカレンダーに表示する。
-将来的にはイベント前後の株価影響を統計分析し、トレード判断を支援。
+MR-LS（Mean Reversion Long-Short、z2/K3/excl_1、日米両市場）の補助ツール。
+半導体セクターのイベントを自動収集 → iPhoneカレンダーに表示。将来はイベント影響の統計分析も。
 
-## リポジトリ
-
-- GitHub: https://github.com/yukissssss/sector-event-radar (private)
+- GitHub: https://github.com/yukissssss/sector-event-radar (public)
 - ローカル: ~/Documents/stock_analyzer/sector_event_radar/
-- Python 3.13 / pydantic / SQLite / GitHub Actions
+- Python 3.13 / pydantic / feedparser / SQLite / GitHub Actions
 
-## 現在の状態（2026-02-27時点）
+---
 
-**稼働中:**
-- GitHub Actions: 毎朝07:05 JST自動実行（DRY_RUN=false）
-- FMP collector: bellwether 9銘柄の決算日取得 → DB → ICS
-- OPEX: 6ヶ月分の第3金曜計算 + 祝日調整 → DB → ICS
-- DB永続化: GitHub Releases方式（db-latestタグ）
-- テスト: 22本全通過
+## 現在の状態（Session 16 全Task完了 2026-03-01）
 
-**未稼働:**
-- TE (Trading Economics): Freeプラン制限でAPI呼び出し不可。スキップ中
-- RSS→Claude抽出: ANTHROPIC_API_KEY未登録
-- GitHub Pages: 未有効化（ICSのiPhone購読未設定）
+### 稼働中 — 全4カテゴリ + Federal Register BIS
 
-**スタブ（Phase 2以降）:**
-- impact.py: イベント影響評価
-- audit.py: 月次監査
-- notify.py: 通知連携
+| ソース | タイプ | 状態 | イベント数 |
+|--------|--------|------|-----------|
+| BLS static | macro | ✅ | 18 |
+| BEA .ics | macro | ✅ | 14 |
+| FOMC static | macro | ✅ | 4 |
+| FMP Stable | bellwether | ✅ | 7 |
+| OPEX計算 | flows | ✅ | 6 |
+| Federal Register BIS | shock | ✅ NEW | 4 |
+| SemiEng/EETimes/TrendForce→Claude | shock | ✅ | 10+10+10 fetched |
+| SIA RSS | shock | ⚠️ 0件 | SIA側XML破損。enabled放置(無害) |
+| **ICS all** | | | **54 events** |
 
-## ファイル構成（要点のみ）
+### 最新Actionsログ（2026-03-01 23:08 JST）
 
 ```
-.github/workflows/daily.yml  ← Actions定義（毎朝自動実行）
+scheduled=47(macro36+bw7+FR_BIS4), computed=6, unscheduled=0
+inserted=4, merged=49, rejected=0, errors=0
+ICS: all=54, macro=36, bellwether=7, flows=6, shock=5
+```
+
+### Session 15-16で解決した全課題
+
+| 課題 | 対策 |
+|------|------|
+| P0: shock ICS 0件 | override_shock_category() |
+| P1: 四半期3ヶ月表示 | 3層防御(SYSTEM_PROMPT+normalize+migrate) |
+| prefilter全DROP | キーワード23→55語, threshold 4.0→3.0 |
+| SIA XMLエラー | feedparser導入(SIA側破損で0件だが無害) |
+| BIS RSS死亡 | Federal Register API代替(4 events) |
+| validate now-7d | GPT承認:現状維持(正常動作) |
+
+### テスト: 181本全通過
+
+---
+
+## ファイル構成（主要）
+
+```
 src/sector_event_radar/
-  run_daily.py       ← エントリポイント。3 collector → upsert → ICS。部分失敗設計
-  collectors/
-    scheduled.py     ← TE(スキップ中) + FMP(稼働中)
-    rss.py           ← RSSフィード取得
-  llm/
-    claude_extract.py ← Claude API抽出器（未稼働）
-  canonical.py       ← canonical_key生成。shock系はsource_urlでhash
-  config.py          ← AppConfig。bellwether_tickers等
-  models.py          ← Event/Article Pydanticモデル
-  db.py              ← SQLite upsert（冪等）
-  ics.py             ← RFC5545 ICS生成。line folding+CRLF
-  flows.py           ← OPEX計算
-  prefilter.py       ← RSS記事2段階フィルタ
-  validate.py        ← イベント検証
-  impact.py          ← スタブ
-  audit.py           ← スタブ
-  notify.py          ← スタブ
-config.yaml          ← 本番設定（keywords/macro_title_map/RSS/bellwether）
-docs/ics/            ← ICS出力先（Actions自動commit）
-docs/handoff/        ← 引き継ぎ文書（以下4ファイル）
-  project_progress_log.md   ← 累積型進捗ログ。セッションごとに先頭追記
-  chat_handoff_memo.md      ← 本ファイル。新チャットにコピペで文脈復元用
-  file_map_handoff.md       ← 全ファイルの役割・場所・実装状態一覧
-  gpt_progress_report_*.md  ← GPTへの報告+相談（都度作成）
-tests/               ← 22テスト（canonical/phase1/scheduled）
+├── run_daily.py              ← エントリポイント + override/normalize/migrate
+├── collectors/
+│   ├── scheduled.py          ← FMP Stable bellwether
+│   ├── official_calendars.py ← BLS/BEA/FOMC
+│   ├── rss.py                ← feedparser優先 + ETフォールバック
+│   └── federal_register.py   ← Federal Register BIS API (NEW)
+├── llm/claude_extract.py     ← Claude Haiku + 3層防御層1
+├── prefilter.py              ← 55kw/threshold3.0
+├── validate.py               ← now-7dルール(変更不要)
+└── impact.py                 ← Phase 2スタブ
 ```
 
-## GitHub Secrets
+---
 
-| Secret | 状態 |
-|--------|------|
-| FMP_API_KEY | ✅ 登録済み |
-| TE_API_KEY | ❌ Freeプラン制限 |
-| ANTHROPIC_API_KEY | ❌ 未登録 |
+## 運用哲学（絶対守る）
+1. ノイズ絶対殺す
+2. 幻覚ゼロ
+3. 部分失敗OK
+4. コストガード
 
-## 設計上の重要判断
+---
 
-- **4カテゴリ固定**: macro/bellwether/flows/shock。セクター差はsector_tagsで吸収
-- **部分失敗設計**: collector間は独立try/except。どれが落ちてもICS生成まで到達
-- **canonical_key**: `{category}:{entity}:{sub_type}:{YYYY-MM-DD}`。shock系は`short_hash(source_url)`
-- **DB永続化**: GitHub Releases（Artifact=90日削除、Cache=不安定のため不採用）
+## 次のアクション
 
-## 未解決の相談事項（GPTに投げた）
-
-1. TEなしのmacro指標取得方針（FMP代替 / RSS→Claude / 静的YAML / ハイブリッド）
-2. 次の優先順位（GitHub Pages / Claude抽出オン / macro代替実装）
-
-## 関連プロジェクト
-
-MR-LS最終パラメータ: z2/K3/excl_1（日米両市場共通、holdout両市場通過の唯一のパラメータ）
+1. **Task D: Phase 2 impact.py** — GPTに設計相談中
+2. config.yaml旧BIS RSSエントリ削除（整理）
+3. 観察継続: shock蓄積、prefilter通過率

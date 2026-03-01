@@ -1,92 +1,79 @@
 # Session 16 変更サマリ — 2026-03-01
 
-## 概要
-四半期イベントの3ヶ月表示問題の恒久修正。GPT助言に沿った3層防御。
+## Part 1: 四半期レンジ3層防御
 
-## 原因分析
+→ 詳細は session16_changes の旧版を参照。要約:
+- 3層防御: SYSTEM_PROMPT(ルール10-12) + normalize_date_range() + migrate_quarter_range()
+- GPTレビュー3回分全反映。末日型レンジ(6/30T23:59:59)捕捉。
+- iPhone実機DoD全達成。テスト17本。
 
-### 症状
-TrendForce「HBM4 Validation Expected in 2Q26」→ Claude抽出で start=4/1, end=7/1。
-iPhoneカレンダーに4/1〜7/1の3ヶ月間、毎日表示される。
+---
 
-### 根本原因
-claude_extract.pyのSYSTEM_PROMPTに四半期/月/半期表現の扱いルールがなかった。
-Claudeが「2Q26」を四半期の期間（4/1〜7/1）として解釈し、start_at/end_at両方を設定。
+## Part 2: Task A〜C（prefilter + RSS復旧 + Federal Register）
 
-## 修正内容（3層防御）
+### Task A: ログ診断
+- Stage A: 0/12 passed (threshold=4.0)
+- 診断: 半導体無関係記事 + キーワード狭すぎ(23語)の複合
 
-### 層1: claude_extract.py — SYSTEM_PROMPTにルール10-12追加
+### Task B: prefilter Stage Aチューニング
 
-- ルール10: 「Do NOT create multi-day range events for quarter/month/half-year only expressions」
-- ルール11: 四半期 → start_at=初日T00:00:00Z, end_at=null, confidence=0.4-0.6
-- ルール12: 月/半期 → 同上
-- Tool Schema: end_at descriptionに「quarter/month/half-year は ALWAYS null」追記
-- Tool Schema: confidence descriptionに「quarter/month → 0.4-0.6」追記
+| 変更 | Before | After |
+|------|--------|-------|
+| キーワード数 | 23語 | 55語（4段階Tier） |
+| threshold | 4.0 | 3.0 |
+| Stage A通過 | 0/12 | 4/12 |
+| inserted | 0 | 1 |
 
-### 層2: run_daily.py — normalize_date_range() ポストプロセス
+テスト8本追加。
 
-Claude抽出直後（override_shock_categoryの後）に呼び出す防火扉。
-start_atが月初日かつend_atとの差が28〜190日のイベントをend_at=Noneに矯正。
-_is_quarter_like_range() で判定。
+### validate now-7d ルール
 
-### 層3: run_daily.py — migrate_quarter_range() DBマイグレーション
+GPT承認: **方針A（現状維持）**。ICS窓(now-1d)との二重フィルタで変更不要。
 
-既存DBの「claude_extract」ソースでend_atがNOT NULLかつ四半期レンジのイベントをNULLに修正。
-migrate_shock_category()と同じ流儀: try/exceptで保護、冪等、公式macroは温存。
+### Task C-1: SIA RSS（feedparser導入）
 
-## GPT助言の採用状況
+- feedparser>=6.0をpyproject.toml依存追加
+- rss.py: feedparser優先、ElementTreeフォールバック
+- 結果: feedparser動作するがSIA側XML破損で0件（無害、enabled放置）
+- テスト7本追加
 
-| 助言 | 対応 |
-|------|------|
-| 恒久対策A: SYSTEM_PROMPTルール追加 | ✅ ルール10-12 |
-| 恒久対策B: DBマイグレーション | ✅ migrate_quarter_range() |
-| オプション: post-processの防火扉 | ✅ normalize_date_range() |
-| confidence下げ | ✅ ルール11-12 + Tool Schema description |
-| Tool Schema end_at説明追記 | ✅ |
+### Task C-2: Federal Register BIS（旧RSS代替）
 
-## テスト追加
+GPT助言: 旧BIS RSS死亡。Federal Register APIが一次ソース。
 
-### test_quarter_range_fix.py（13本）
+- federal_register.py新規: APIキー不要JSON API
+- effective_on → 施行日イベント、comments_close_on → パブコメ締切
+- 構造化データ → LLM不要 = 幻覚ゼロ
+- publication_date過去90日検索 → イベント日未来のみ生成
 
-TestIsQuarterLikeRange（4本）:
-1. test_quarter_range_detected — 91日=四半期
-2. test_month_range_detected — 31日=月
-3. test_short_range_not_detected — 1時間は対象外
-4. test_non_first_day_not_detected — day!=1は対象外
+| 指標 | Before | After |
+|------|--------|-------|
+| BIS規制イベント | 0 | **4 inserted** |
+| ICS shock | 1 | **5** |
+| ICS all | 50 | **54** |
+| errors | 0 | 0 |
 
-TestNormalizeDateRange（5本）:
-5. test_quarter_range_nullified — Q2→None
-6. test_month_range_nullified — March→None
-7. test_half_year_range_nullified — H1→None
-8. test_exact_date_preserved — 1時間イベント温存
-9. test_no_end_at_noop — None→None
+テスト11本追加。
 
-TestMigrateQuarterRange（4本）:
-10. test_fixes_existing_quarter_range — DB内レンジ→NULL
-11. test_does_not_touch_non_claude — 公式macro温存
-12. test_noop_when_no_end_at — NULL→何もしない
-13. test_idempotent — 2回実行で冪等性
+---
 
-## リポジトリへの配置
+## Session 16 全体の成果
 
-```
-cp claude_extract.py          → src/sector_event_radar/llm/claude_extract.py
-cp run_daily.py               → src/sector_event_radar/run_daily.py
-cp test_quarter_range_fix.py  → tests/test_quarter_range_fix.py
-cp session16_changes.md       → docs/handoff/session16_changes.md
-```
+| 指標 | 値 |
+|------|-----|
+| テスト | 155 → **181本**（+26本） |
+| ICS all | 50 → **54 events** |
+| 新コレクター | Federal Register BIS |
+| 新依存 | feedparser>=6.0 |
+| GPT承認事項 | validate now-7d現状維持、SIA enabled放置、FR BIS採用 |
 
-## push後の確認ポイント
+## 変更ファイル（Part 2）
 
-1. pytest → 138本 + 13本 = 151本全通過
-2. Actionsログで:
-   - `Migration: 'HBM4 ...' end_at ... → NULL (quarter range, key=...)` が1回出る
-   - 2回目以降はno-op
-   - ICS shock: 1 events（変化なし、ただしDTENDなし）
-3. iPhoneカレンダーで [SHOCK] HBM4 が4/1の1回だけ表示（4/2以降に出ない）
-
-## DoD
-
-- iPhoneで [SHOCK] HBM4 が4/1のポイントイベント（毎日表示されない）
-- sector_events_shock.ics に該当イベントのDTEND行がない
-- 既存DBの該当イベントのend_atがNULL
+- `src/sector_event_radar/collectors/rss.py` — feedparser統合
+- `src/sector_event_radar/collectors/federal_register.py` — 新規
+- `src/sector_event_radar/run_daily.py` — FR BISコレクター統合
+- `config.yaml` — SIA enabled, keywords 55語, threshold 3.0
+- `pyproject.toml` — feedparser>=6.0
+- `tests/test_rss_feedparser.py` (7本)
+- `tests/test_federal_register.py` (11本)
+- `tests/test_prefilter_tuning.py` (8本)
