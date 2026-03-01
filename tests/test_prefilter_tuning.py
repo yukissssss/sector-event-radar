@@ -120,13 +120,22 @@ class TestPrefilterKeywords:
         assert len(result) == 0
 
     def test_near_miss_single_keyword_below_threshold(self):
-        """キーワード1個('packaging'=1.5)が1回だけ → score=1.5 < 3.0 → DROP"""
-        articles = [_article(
-            "New Trends in Electronics Packaging for IoT Devices",
-            "Innovative solutions for next-generation IoT applications.",
-        )]
+        """キーワード1個('packaging'=1.5)が1回だけ → Stage A不通過（PASSする記事と混在時）"""
+        articles = [
+            _article(
+                "New Trends in Electronics Packaging for IoT Devices",
+                "Innovative solutions for next-generation IoT applications.",
+            ),
+            _article(
+                "NVIDIA Announces New AI Chip for Data Centers",
+                "NVIDIA unveiled its latest AI chip targeting semiconductor markets.",
+            ),
+        ]
         result = prefilter(articles, TEST_KEYWORDS, stage_a_threshold=THRESHOLD)
-        assert len(result) == 0
+        # NVIDIA記事はPASS、Packaging記事(score=1.5)はDROP
+        titles = [r.article.title for r in result]
+        assert "NVIDIA Announces New AI Chip for Data Centers" in titles
+        assert "New Trends in Electronics Packaging for IoT Devices" not in titles
 
 
 # ══════════════════════════════════════════════════════════
