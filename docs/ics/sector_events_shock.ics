@@ -2,4 +2,18 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
+BEGIN:VEVENT
+UID:macro:us:hbm4-validation-completion-expec:2026-04-01
+DTSTAMP:20260301T075650Z
+SUMMARY:[SHOCK] HBM4 Validation Completion Expected
+DTSTART:20260401T000000Z
+DTEND:20260630T235959Z
+URL:https://www.trendforce.com/presscenter/news/20260213-12929.html
+DESCRIPTION:Risk: 25/100 | Confidence: 0.85\nTags: HBM\, memory\, semicondu
+ ctors\, NVIDIA\nSource: https://www.trendforce.com/presscenter/news/202602
+ 13-12929.html\n---\nEvidence: HBM4 validation\, with completion anticipate
+ d by 2Q26
+CATEGORIES:shock
+X-SECTOR-TAGS:HBM\,memory\,semiconductors\,NVIDIA
+END:VEVENT
 END:VCALENDAR
