@@ -200,3 +200,26 @@ def _upsert_event_source(conn: sqlite3.Connection, event: Event, now_iso: str) -
             now_iso,
         ),
     )
+
+
+def is_article_seen(conn, url: str) -> bool:
+    """articlesテーブルで既処理記事をチェック"""
+    cur = conn.execute("SELECT 1 FROM articles WHERE url = ?", (url,))
+    return cur.fetchone() is not None
+
+
+def mark_article_seen(conn, url: str, content_hash: str, relevance_score: float) -> None:
+    """Claude抽出済み記事をarticlesテーブルに記録。
+    再クロール時はcontent_hash/relevance_score/fetched_atを更新。"""
+    from datetime import datetime, timezone
+    conn.execute(
+        """INSERT INTO articles
+           (url, content_hash, relevance_score, fetched_at)
+           VALUES (?, ?, ?, ?)
+           ON CONFLICT(url) DO UPDATE SET
+               content_hash = excluded.content_hash,
+               relevance_score = excluded.relevance_score,
+               fetched_at = excluded.fetched_at""",
+        (url, content_hash, relevance_score, datetime.now(timezone.utc).isoformat()),
+    )
+    conn.commit()
