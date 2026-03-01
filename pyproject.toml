@@ -3,7 +3,7 @@ name = "sector-event-radar"
 version = "0.1.0"
 description = "Sector Event Radar skeleton"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["feedparser>=6.0"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
