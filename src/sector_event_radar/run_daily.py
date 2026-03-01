@@ -293,8 +293,16 @@ def _collect_unscheduled(
             )
             llm_calls += 1
 
-            # RSS→Claude抽出パイプラインは設計上すべてshockカテゴリ
-            override_shock_category(extracted)
+            # RSS→Claude抽出パイプラインは設計上すべてshockカテゴリ。
+            # macro/bellwether/flowsは専用collectorが担当するため、
+            # Claudeの分類に依存せずコード側で強制する。
+            for ev in extracted:
+                if ev.category != "shock":
+                    logger.info(
+                        "Category override: '%s' %s → shock",
+                        ev.title[:50], ev.category,
+                    )
+                    ev.category = "shock"
 
             llm_events_total += len(extracted)
             events.extend(extracted)
@@ -393,39 +401,12 @@ def _generate_ics_files(conn, ics_dir: str, now: datetime) -> None:
             logger.error("Failed to write %s: %s", filename, e)
 
 
-def override_shock_category(events: List[Event]) -> int:
-    """Claude抽出イベントのcategoryをshockに強制する。
-
-    RSS→Claude抽出パイプラインは設計上すべてshockカテゴリ。
-    macro/bellwether/flowsは専用collectorが担当するため、
-    Claudeの分類に依存せずコード側で強制する。
-
-    Returns:
-        int: 上書きした件数
-    """
-    overridden = 0
-    for ev in events:
-        if ev.category != "shock":
-            logger.info(
-                "Category override: '%s' %s → shock",
-                ev.title[:50], ev.category,
-            )
-            ev.category = "shock"
-            overridden += 1
-    return overridden
-
-
-def migrate_shock_category(conn) -> int:
+def _migrate_shock_category(conn) -> int:
     """既存のClaude抽出イベントでcategory!=shockのものをshockに修正。
 
     Session 14以前、Claudeがcategoryを自由選択していたため
     macro等に誤分類されたshockイベントが存在しうる。
-
-    安全設計:
-    - categoryカラムのみ更新。canonical_keyは変更しない（PK衝突・外部キー破損を回避）
-    - canonical_keyの先頭が旧categoryのままになるが、ICSフィルタは events.category で
-      判定するため機能上は問題ない
-    - 対象イベントがなければno-op（毎回走っても安全）
+    canonical_keyは {category}:... 形式なので、キーも更新する。
     """
     cur = conn.execute("""
         SELECT DISTINCT e.canonical_key, e.title, e.category
@@ -439,13 +420,20 @@ def migrate_shock_category(conn) -> int:
         return 0
 
     for r in rows:
+        old_key = r["canonical_key"]
+        # canonical_key先頭の旧category → shock に置換
+        new_key = "shock:" + old_key.split(":", 1)[1] if ":" in old_key else old_key
         logger.info(
-            "Migration: '%s' category %s → shock (key=%s unchanged)",
-            r["title"], r["category"], r["canonical_key"],
+            "Migration: '%s' category %s → shock (key: %s → %s)",
+            r["title"], r["category"], old_key, new_key,
         )
         conn.execute(
-            "UPDATE events SET category = 'shock' WHERE canonical_key = ?",
-            (r["canonical_key"],),
+            "UPDATE events SET category = 'shock', canonical_key = ? WHERE canonical_key = ?",
+            (new_key, old_key),
+        )
+        conn.execute(
+            "UPDATE event_sources SET canonical_key = ? WHERE canonical_key = ?",
+            (new_key, old_key),
         )
     conn.commit()
     logger.info("Migration: fixed %d miscategorized shock events", len(rows))
@@ -463,11 +451,7 @@ def run_daily(config_path: str, db_path: str, ics_dir: str, dry_run: bool = Fals
     init_db(conn)
 
     # 誤分類マイグレーション（Claude抽出イベントをshockに統一）
-    # 設計契約: 失敗してもICS生成まで必ず到達する
-    try:
-        migrate_shock_category(conn)
-    except Exception as e:
-        logger.warning("Migration failed (non-fatal, continuing): %s", e)
+    _migrate_shock_category(conn)
 
     now = datetime.now(timezone.utc)
     all_errors: List[str] = []
