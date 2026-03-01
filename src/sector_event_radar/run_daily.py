@@ -40,7 +40,6 @@ CATEGORY_ICS_MAP = {
     "shock": "sector_events_shock.ics",
 }
 
-
 def _parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Sector Event Radar daily batch")
     p.add_argument("--config", required=True, help="config.yaml path")
@@ -295,6 +294,8 @@ def _collect_unscheduled(
 
             # RSS→Claude抽出パイプラインは設計上すべてshockカテゴリ
             override_shock_category(extracted)
+            # 四半期/月/半期レンジ → ポイントイベント正規化（防火扉）
+            normalize_date_range(extracted)
 
             llm_events_total += len(extracted)
             events.extend(extracted)
@@ -415,6 +416,62 @@ def override_shock_category(events: List[Event]) -> int:
     return overridden
 
 
+def _is_quarter_like_range(start_at: datetime, end_at: datetime) -> bool:
+    """start_at/end_atが四半期/半期/月のレンジかを判定。
+
+    設計思想: ノイズ絶対殺す（思想A）。Claude抽出由来の期間レンジは
+    iPhoneカレンダーで毎日表示されるノイズになるため、積極的に潰す。
+
+    判定条件（すべて満たす）:
+    - start_at.day == 1（月初日）
+    - end_atが以下のいずれか:
+      a) end_at.day == 1 かつ 月差が {1, 3, 6}（次の月/四半期/半期の初日）
+      b) end_atが月末日 かつ 月差が {0, 2, 5}（同月末/四半期末/半期末）
+         例: 4/1→6/30 (月差2), 2/1→2/28 (月差0), 1/1→6/30 (月差5)
+    """
+    import calendar
+
+    if start_at.day != 1:
+        return False
+
+    month_delta = (end_at.year - start_at.year) * 12 + (end_at.month - start_at.month)
+
+    # パターンa: end_atが次の期間初日（e.g. 4/1→7/1）
+    if end_at.day == 1 and month_delta in {1, 3, 6}:
+        return True
+
+    # パターンb: end_atが月末日（e.g. 4/1→6/30, 2/1→2/28）
+    _, last_day = calendar.monthrange(end_at.year, end_at.month)
+    if end_at.day == last_day and month_delta in {0, 2, 5}:
+        return True
+
+    return False
+
+
+def normalize_date_range(events: List[Event]) -> int:
+    """Claude抽出イベントの四半期/月/半期レンジをポイントイベントに正規化する。
+
+    プロンプトで「end_at=null」を指示しても、モデルがレンジを返す場合の防火扉。
+    _is_quarter_like_range() で月初日起点・月差{1,3,6}または月末閉じを検出し、
+    end_at=Noneに矯正。ics.pyはend_at=NoneならDTENDを出さないのでiPhoneノイズが消える。
+
+    Returns:
+        int: 正規化した件数
+    """
+    normalized = 0
+    for ev in events:
+        if ev.end_at is None:
+            continue
+        if _is_quarter_like_range(ev.start_at, ev.end_at):
+            logger.info(
+                "Range normalize: '%s' end_at %s → None (quarter/month/half-year range)",
+                ev.title[:50], ev.end_at.isoformat(),
+            )
+            ev.end_at = None
+            normalized += 1
+    return normalized
+
+
 def migrate_shock_category(conn) -> int:
     """既存のClaude抽出イベントでcategory!=shockのものをshockに修正。
 
@@ -452,6 +509,53 @@ def migrate_shock_category(conn) -> int:
     return len(rows)
 
 
+def migrate_quarter_range(conn) -> int:
+    """既存のClaude抽出イベントで四半期/月/半期レンジのend_atをNULLに修正。
+
+    Session 15以前、Claudeが「2Q26」等を start=4/1, end=7/1 のレンジで抽出。
+    iPhoneカレンダーで3ヶ月毎日表示されるノイズ問題の恒久修正。
+
+    安全設計:
+    - source_name='claude_extract' のイベントのみ対象（公式macroは触らない）
+    - _is_quarter_like_range() で月初日起点・月差{1,3,6}または月末閉じを判定
+    - 対象イベントがなければno-op（毎回走っても安全・冪等）
+    """
+    cur = conn.execute("""
+        SELECT DISTINCT e.canonical_key, e.title, e.start_at, e.end_at
+          FROM events e
+          JOIN event_sources es ON e.canonical_key = es.canonical_key
+         WHERE es.source_name = 'claude_extract'
+           AND e.end_at IS NOT NULL
+    """)
+    rows = cur.fetchall()
+    if not rows:
+        return 0
+
+    fixed = 0
+    for r in rows:
+        try:
+            start_at = datetime.fromisoformat(r["start_at"])
+            end_at = datetime.fromisoformat(r["end_at"])
+        except (ValueError, TypeError):
+            continue
+
+        if _is_quarter_like_range(start_at, end_at):
+            logger.info(
+                "Migration: '%s' end_at %s → NULL (quarter range, key=%s)",
+                r["title"], r["end_at"], r["canonical_key"],
+            )
+            conn.execute(
+                "UPDATE events SET end_at = NULL, updated_at = ? WHERE canonical_key = ?",
+                (datetime.now(timezone.utc).isoformat(), r["canonical_key"]),
+            )
+            fixed += 1
+
+    if fixed:
+        conn.commit()
+        logger.info("Migration: fixed %d quarter-range events", fixed)
+    return fixed
+
+
 def run_daily(config_path: str, db_path: str, ics_dir: str, dry_run: bool = False) -> dict:
     """メインエントリポイント。
 
@@ -462,12 +566,16 @@ def run_daily(config_path: str, db_path: str, ics_dir: str, dry_run: bool = Fals
     conn = connect(db_path)
     init_db(conn)
 
-    # 誤分類マイグレーション（Claude抽出イベントをshockに統一）
-    # 設計契約: 失敗してもICS生成まで必ず到達する
+    # マイグレーション（設計契約: 失敗してもICS生成まで必ず到達する）
     try:
         migrate_shock_category(conn)
     except Exception as e:
-        logger.warning("Migration failed (non-fatal, continuing): %s", e)
+        logger.warning("Migration (shock category) failed (non-fatal): %s", e)
+
+    try:
+        migrate_quarter_range(conn)
+    except Exception as e:
+        logger.warning("Migration (quarter range) failed (non-fatal): %s", e)
 
     now = datetime.now(timezone.utc)
     all_errors: List[str] = []

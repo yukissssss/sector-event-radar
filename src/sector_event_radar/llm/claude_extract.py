@@ -64,7 +64,10 @@ EMIT_EVENTS_TOOL = {
                         },
                         "end_at": {
                             "type": ["string", "null"],
-                            "description": "ISO8601 end time or null"
+                            "description": (
+                                "ISO8601 end time or null. "
+                                "For quarter-only, month-only, or half-year-only expressions, ALWAYS use null."
+                            )
                         },
                         "category": {
                             "type": "string",
@@ -82,7 +85,10 @@ EMIT_EVENTS_TOOL = {
                         },
                         "confidence": {
                             "type": "number",
-                            "description": "0.0-1.0 extraction confidence"
+                            "description": (
+                                "0.0-1.0 extraction confidence. "
+                                "Exact date → 0.8-0.95. Quarter/month/half-year only → 0.4-0.6."
+                            )
                         },
                         "evidence": {
                             "type": "string",
@@ -108,7 +114,7 @@ EMIT_EVENTS_TOOL = {
 SYSTEM_PROMPT = """You are an event extractor for an AI semiconductor sector calendar.
 
 RULES (strictly follow all):
-1. Extract ONLY events with an EXPLICIT date or datetime in the article text.
+1. Extract ONLY events with an EXPLICIT date or datetime in the article text. Explicit quarter/month/half-year expressions with a year (e.g. "Q2 2026", "March 2026", "1H26") are considered explicit time references.
 2. If no explicit date/time is found, you MUST return events=[].
 3. Vague expressions like "soon", "later this year", "in the coming weeks" are NOT explicit dates. Return events=[] for these.
 4. The "evidence" field MUST be a verbatim quote from the article that contains the date/time. Keep it 12-280 characters.
@@ -116,7 +122,17 @@ RULES (strictly follow all):
 6. Category rules: macro=economic indicators (CPI/FOMC/NFP), bellwether=earnings of major companies, flows=options/rebalancing events, shock=sudden regulatory/supply events.
 7. risk_score: macro events >= 20, shock events >= 30.
 8. Use ISO8601 format with timezone for start_at. If only a date is given (no time), use T00:00:00Z.
-9. source_name and source_url will be added by the caller. Do not include them."""
+9. source_name and source_url will be added by the caller. Do not include them.
+10. IMPORTANT (calendar noise guard): Do NOT create multi-day range events for quarter-only, month-only, or half-year-only expressions. These must be point-in-time placeholders with end_at=null.
+11. Quarter-only expressions (e.g. "2Q26", "Q2 2026", "second quarter of 2026"):
+    - start_at = first day of the quarter at T00:00:00Z (Q1=Jan 1, Q2=Apr 1, Q3=Jul 1, Q4=Oct 1)
+    - end_at = null (NEVER set end_at to the last day of the quarter)
+    - confidence = 0.4-0.6 (lower than exact dates)
+12. Month-only and half-year-only expressions:
+    - "March 2026": start_at = 2026-03-01T00:00:00Z, end_at = null
+    - "1H26" or "first half of 2026": start_at = 2026-01-01T00:00:00Z, end_at = null
+    - "H2 2026" or "second half of 2026": start_at = 2026-07-01T00:00:00Z, end_at = null
+    - confidence = 0.4-0.6 (lower than exact dates)"""
 
 
 def _build_headers(api_key: str) -> dict:
