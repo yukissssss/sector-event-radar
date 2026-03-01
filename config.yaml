@@ -1,31 +1,68 @@
 keywords:
+  # ── Tier 1: Core semiconductor terms (3.0) ──
   semiconductor: 3.0
-  chip: 2.5
+  AI chip: 3.0
+  export control: 3.0
   NVIDIA: 3.0
   NVDA: 3.0
-  TSM: 2.5
+
+  # ── Tier 2: Key companies & technologies (2.5) ──
+  chip: 2.5
   TSMC: 2.5
+  TSM: 2.5
   ASML: 2.5
+  sanctions: 2.5
+  capex: 2.5
+  HBM: 2.5
+  foundry: 2.5
+  wafer: 2.5
+  fab: 2.5
+  export ban: 2.5
+  entity list: 2.5
+
+  # ── Tier 3: Companies, technologies, events (2.0) ──
   AMD: 2.0
   Broadcom: 2.0
   AVGO: 2.0
-  export control: 3.0
-  sanctions: 2.5
+  Intel: 2.0
+  Samsung: 2.0
+  SK Hynix: 2.0
+  Micron: 2.0
+  Qualcomm: 2.0
+  SMIC: 2.0
+  GlobalFoundries: 2.0
   tariff: 2.0
   earnings: 2.0
   guidance: 2.0
-  capex: 2.5
   data center: 2.0
-  AI chip: 3.0
-  HBM: 2.5
   CoWoS: 2.0
   EUV: 2.0
   FOMC: 2.0
   CPI: 2.0
   nonfarm: 2.0
 
+  # ── Tier 4: Supply chain & technology nodes (1.5) ──
+  DRAM: 1.5
+  NAND: 1.5
+  lithography: 1.5
+  packaging: 1.5
+  chiplet: 1.5
+  mass production: 1.5
+  volume production: 1.5
+  price hike: 1.5
+  price cut: 1.5
+  capacity expansion: 1.5
+  supply shortage: 1.5
+  utilization rate: 1.5
+  advanced packaging: 1.5
+  2nm: 1.5
+  3nm: 1.5
+  5nm: 1.5
+  GAA: 1.5
+  FinFET: 1.5
+
 prefilter:
-  stage_a_threshold: 4.0
+  stage_a_threshold: 3.0
   stage_b_top_k: 30
 
 macro_title_map:
