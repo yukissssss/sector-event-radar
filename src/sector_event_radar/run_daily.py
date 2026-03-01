@@ -217,18 +217,18 @@ def _collect_unscheduled(
         try:
             extracted = extract_events_from_article(
                 cfg=claude_cfg,
-                article_title=article.title,
-                article_published=article.published,
-                article_url=article.url,
-                article_content=article.body,
+                article_title=article.article.title,
+                article_published=article.article.published,
+                article_url=article.article.url,
+                article_content=article.article.body,
             )
             events.extend(extracted)
         except ClaudeExtractError as e:
-            msg = f"Claude extract failed for '{article.title[:50]}': {e}"
+            msg = f"Claude extract failed for '{article.article.title[:50]}': {e}"
             logger.warning(msg)
             errors.append(msg)
         except Exception as e:
-            msg = f"Unexpected error extracting '{article.title[:50]}': {e}"
+            msg = f"Unexpected error extracting '{article.article.title[:50]}': {e}"
             logger.warning(msg)
             errors.append(msg)
 
