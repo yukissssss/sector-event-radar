@@ -40,12 +40,13 @@ def _kw_score(text: str, keywords: Dict[str, float]) -> float:
 def prefilter(
     articles: Sequence[Article],
     keywords: Dict[str, float],
-    stage_a_threshold: float = 6.0,
+    stage_a_threshold: float = 4.0,
     stage_b_top_k: int = 30,
 ) -> List[ScoredArticle]:
-    """Spec M1:
-    - Stage A: keyword weighted score, threshold >= 6.0
+    """Spec M1: 2段階記事フィルタ。
+    - Stage A: keyword weighted score（thresholdは config.yaml で可変、デフォルト4.0）
     - Stage B: TF-IDF cosine similarity, top_k only (if sklearn available)
+    - Stage A=0件時: score>0 の上位K件をfallbackで返す（sklearn有無に関わらず）
     """
     # ── Stage A: keyword scoring ──
     all_scored: List[ScoredArticle] = []
@@ -84,25 +85,24 @@ def prefilter(
                 i + 1, sa.relevance_score, sa.article.title[:80],
             )
 
-    if not _HAS_SKLEARN:
-        if scored_a:
-            logger.info("Stage B skipped (no sklearn). Returning %d Stage A articles", len(scored_a))
-            return scored_a
-        # フォールバック: Stage A=0件でもscore>0の上位K件を返す。
-        # run_daily側の max_articles_per_run が最終的なコストガードになる。
+    # ── Stage A=0件 → フォールバック（sklearn有無に関わらず）──
+    # score>0の上位K件を返す。run_daily側のmax_articles_per_runが最終コストガード。
+    if not scored_a:
         if not all_scored:
             return []
         all_scored.sort(key=lambda x: x.relevance_score, reverse=True)
         fallback = [sa for sa in all_scored if sa.relevance_score > 0][:max(1, int(stage_b_top_k))]
         logger.info(
-            "Stage B skipped (no sklearn). Stage A=0, fallback: returning top %d articles (score>0)",
+            "Stage A=0, fallback: returning top %d articles (score>0)",
             len(fallback),
         )
         return fallback
 
-    if not scored_a:
-        logger.info("Stage B skipped: no articles passed Stage A")
-        return []
+    # ── sklearn無し → Stage Aの結果をスコア降順で返す ──
+    if not _HAS_SKLEARN:
+        scored_a.sort(key=lambda x: x.relevance_score, reverse=True)
+        logger.info("Stage B skipped (no sklearn). Returning %d Stage A articles", len(scored_a))
+        return scored_a
 
     # ── Stage B: TF-IDF cosine similarity ──
     docs = [f"{sa.article.title}\n{sa.article.body}" for sa in scored_a]
