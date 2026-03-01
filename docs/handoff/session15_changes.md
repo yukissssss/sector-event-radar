@@ -1,87 +1,71 @@
 # Session 15 変更サマリ — 2026-03-01
 
 ## 概要
-工程3-P0: **shock ICS 0件問題の原因特定と恒久修正**。
-GPTレビューの優先順位に従い、最優先のshock ICS問題を解決。
+**shock ICS 0件問題の原因特定と恒久修正** + **prefilter全落ち問題の解決**。
+GPT助言3回分を全反映。最終結果: ICS shock: 1 events ✅
 
 ## 原因分析
 
-### shock ICS 0件の根本原因: **カテゴリ誤分類**
-
+### shock ICS 0件の根本原因: カテゴリ誤分類
 Session 14のActionsログを精査:
-- `inserted=1` → DBにはイベントが入っている
-- `macro: 37`（前回36から+1）、`shock: 0`（変化なし）
-- ICS all: 50（前回49から+1）
+- inserted=1 → DBにはイベントが入っている
+- macro: 37（前回36から+1）、shock: 0（変化なし）
+- **結論**: Claudeが HBM4イベントを category="macro" と分類 → macroが+1、shockは0のまま
 
-**結論**: Claudeが HBM4イベントを `category="macro"` と分類 → macroが+1、shockは0のまま。
-
-コード上の原因箇所:
-1. `claude_extract.py` L45: schemaで `"enum": ["macro", "bellwether", "flows", "shock"]` — Claudeが自由にカテゴリを選べる状態
-2. `run_daily.py` L298: `events.extend(extracted)` — Claude返却のcategoryをそのままupsert
-3. `_generate_ics_files` L383: `if e.category == category` — categoryでICSフィルタ
+### prefilter全落ちの根本原因: threshold高すぎ + フォールバック未実装
+- Seen filter後の二軍20記事がStage A threshold=6.0を全て下回り0/20通過
+- sklearn無し環境でStage B不動 → 0件返却 → Claude抽出スキップ
 
 ## 修正内容
 
-### run_daily.py — 2箇所
+### run_daily.py — 3箇所
+1. **override_shock_category()**: Claude抽出直後にcategory="shock"強制（公開関数）
+2. **migrate_shock_category()**: DB既存の誤分類修正。categoryのみ更新、canonical_key不変
+3. **migration呼び出しをtry/exceptで囲む**: バッチ続行保証
 
-**1. category="shock" 強制（恒久修正）**
+### prefilter.py — 4箇所
+1. **Stage A=0件フォールバック**: sklearn有無に関わらずscore>0の上位K件を返す
+2. **scored_aスコア降順ソート**: sklearn無し経路でLLM枠食い潰し防止
+3. **near-missログ**: Stage A=0件時に上位5件のスコア+タイトルをINFO出力
+4. **docstring/デフォルト値更新**: threshold=4.0、fallback動作の記述追加
 
-`_collect_unscheduled()` 内、Claude抽出直後にcategoryを強制上書き:
+### config.py — 2箇所
+1. **PrefilterConfig.stage_a_threshold**: 6.0→4.0
+2. **LlmConfig.model**: claude-haiku-4-5-20241022→claude-haiku-4-5-20251001
 
-```python
-# RSS→Claude抽出パイプラインは設計上すべてshockカテゴリ。
-# macro/bellwether/flowsは専用collectorが担当するため、
-# Claudeの分類に依存せずコード側で強制する。
-for ev in extracted:
-    if ev.category != "shock":
-        logger.info("Category override: '%s' %s → shock", ev.title[:50], ev.category)
-        ev.category = "shock"
+### config.yaml — 1箇所
+1. **stage_a_threshold**: 6.0→4.0
+
+### test_shock_category_fix.py — 10本新規
+- TestOverrideShockCategory: 4本（macro→shock、shock→shock、複数、空リスト）
+- TestMigrateShockCategory: 6本（Claude修正、BLS温存、no-op、canonical_key不変、mixed、冪等性）
+
+## GPTレビュー反映（3回分）
+
+| 回 | 指摘 | 対応 |
+|----|------|------|
+| 1回目 | canonical_key書き換えはPK衝突リスク | ✅ categoryのみ更新 |
+| 1回目 | migration失敗でバッチ停止 | ✅ try/except追加 |
+| 1回目 | テストが実装を直接import不可 | ✅ 公開関数化 |
+| 2回目 | threshold引き下げ + フォールバック | ✅ 4.0 + fallback実装 |
+| 2回目 | near-missログで閾値チューニング | ✅ top5スコア出力 |
+| 3回目 | scored_aがスコア順でない | ✅ 降順ソート追加 |
+| 3回目 | docstring/デフォルトが古い | ✅ 更新 |
+| 3回目 | config.pyのデフォルト地雷 | ✅ 運用値に統一 |
+| 3回目 | sklearn有りでもStage A=0でfallback | ✅ 統一化 |
+
+## 最終Actionsログ（07:56 UTC）
+```
+Migration: 'HBM4 Validation Completion Expected' category macro → shock (key=...unchanged)
+Migration: fixed 1 miscategorized shock events
+Prefilter Stage A: 1/20 passed (threshold=4.0, dropped=19)
+Stage B skipped (no sklearn). Returning 1 Stage A articles
+Claude extract: 0 events from 'Taiwan's Tech Industry'
+ICS macro: 36 events (-1)
+ICS shock: 1 events (+1) ← P0完了
+errors: []
 ```
 
-設計根拠:
-- RSS→Claude抽出パイプラインは「unscheduled = shock」専用
-- macro/bellwether/flowsはそれぞれ専用collector（BLS/BEA/FOMC、FMP、OPEX）が担当
-- LLMの分類判断に依存しない方が堅牢
-
-**2. _migrate_shock_category() — 既存データ修正**
-
-DB init直後に実行。`event_sources.source_name = 'claude_extract'` かつ `category != 'shock'` のイベントを検出し、category + canonical_key を一括修正。
-
-- canonical_key先頭の `{旧category}:` → `shock:` に置換
-- event_sourcesテーブルのcanonical_keyも連動更新
-- FMPやBLS等の他ソースイベントには影響なし（source_nameで判別）
-- 対象イベントがなければno-op（毎回走っても安全）
-
-## テスト追加
-
-### test_shock_category_fix.py（6本）
-
-**TestMigrateShockCategory（3本）**
-1. `test_fixes_miscategorized_claude_event` — macro→shock修正、canonical_key更新
-2. `test_does_not_touch_non_claude_events` — BLS等の他ソースmacroは変更なし
-3. `test_no_op_when_already_shock` — 既にshockなら何もしない
-
-**TestCategoryOverride（3本）**
-4. `test_override_macro_to_shock` — macro→shock上書き確認
-5. `test_shock_stays_shock` — shockはそのまま
-6. `test_multiple_events_all_overridden` — 複数イベント全てshockに統一
-
-## リポジトリへの配置
-```
-cp run_daily.py              → src/sector_event_radar/run_daily.py
-cp test_shock_category_fix.py → tests/test_shock_category_fix.py
-```
-
-## push後の確認ポイント
-
-1. `pytest` → 128本 + 6本 = 134本全通過
-2. Actionsログで:
-   - `Migration: 'HBM4 Validation...' category macro → shock` が1回出る（2回目以降はno-op）
-   - `ICS shock: ... (>=1 events)` が出る ← **これが工程3-P0のDoD**
-3. 新しいClaude抽出イベントで `Category override: ... macro → shock` ログが出る
-4. iPhoneカレンダーのshock購読に `[SHOCK] HBM4 Validation...` が表示される
-
-## 次のアクション（P1〜P2）
-
-- **P1: iPhone表示QA** — `[MACRO]/[BW]/[FLOW]/[SHOCK]` プレフィックス + DESCRIPTION改行の実機確認
-- **P2: Seen filter動作確認** — 2回目Actions実行で `already-processed` が出ることを確認
+## デプロイトラブルと対処
+- ~/Downloads内でMR-LSの同名ファイル（run_daily.py, config.py）がSERリポジトリに上書き
+- 対処: `SER_`プレフィックス付きファイル名で区別してダウンロード→コピー
