@@ -54,11 +54,18 @@ def fetch_federal_register_bis_events(
     events: List[Event] = []
     errors: List[str] = []
 
+    # publication_dateは「過去90日〜今日」で検索。
+    # effective_on/comments_close_onが未来のドキュメントだけイベント化する。
+    # （引数のstart_date/end_dateはイベント日の許容範囲として使う）
+    from datetime import timedelta
+    pub_start = (datetime.now(timezone.utc) - timedelta(days=90)).strftime("%Y-%m-%d")
+    pub_end = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
     try:
         params = {
             "conditions[agencies][]": _BIS_AGENCY,
-            "conditions[publication_date][gte]": start_date,
-            "conditions[publication_date][lte]": end_date,
+            "conditions[publication_date][gte]": pub_start,
+            "conditions[publication_date][lte]": pub_end,
             "fields[]": _FIELDS,
             "per_page": 50,
             "order": "newest",
@@ -80,7 +87,7 @@ def fetch_federal_register_bis_events(
         )
 
         for doc in results:
-            doc_events = _extract_events_from_document(doc)
+            doc_events = _extract_events_from_document(doc, start_date, end_date)
             events.extend(doc_events)
 
         logger.info(
@@ -100,12 +107,17 @@ def fetch_federal_register_bis_events(
     return events, errors
 
 
-def _extract_events_from_document(doc: dict) -> List[Event]:
+def _extract_events_from_document(
+    doc: dict,
+    event_start: str = "",
+    event_end: str = "",
+) -> List[Event]:
     """1つのFederal Register文書から0-2件のイベントを生成。
 
     - effective_on があれば → 施行日イベント
     - comments_close_on があれば → パブコメ締切イベント
     - どちらもなければ → 0件（ノイズ殺し）
+    - event_start/event_end: イベント日の許容範囲（YYYY-MM-DD）。範囲外はスキップ。
     """
     events: List[Event] = []
 
@@ -128,14 +140,17 @@ def _extract_events_from_document(doc: dict) -> List[Event]:
     if effective_on:
         try:
             dt = _parse_date(effective_on)
-            events.append(_build_event(
+            if not _in_date_range(dt, event_start, event_end):
+                logger.debug("Skipping effective_on %s (out of range)", effective_on)
+            else:
+                events.append(_build_event(
                 title=f"BIS Rule Effective: {title[:180]}",
                 start_at=dt,
                 source_url=html_url,
                 evidence=evidence,
                 doc_number=doc_number,
                 sub_type="effective",
-            ))
+                ))
         except ValueError:
             logger.debug("Skipping invalid effective_on: %s", effective_on)
 
@@ -144,14 +159,17 @@ def _extract_events_from_document(doc: dict) -> List[Event]:
     if comments_close:
         try:
             dt = _parse_date(comments_close)
-            events.append(_build_event(
+            if not _in_date_range(dt, event_start, event_end):
+                logger.debug("Skipping comments_close_on %s (out of range)", comments_close)
+            else:
+                events.append(_build_event(
                 title=f"BIS Comment Deadline: {title[:170]}",
                 start_at=dt,
                 source_url=html_url,
                 evidence=evidence,
                 doc_number=doc_number,
                 sub_type="comment_deadline",
-            ))
+                ))
         except ValueError:
             logger.debug("Skipping invalid comments_close_on: %s", comments_close)
 
@@ -181,6 +199,23 @@ def _build_event(
         evidence=evidence[:280],
         action="add",
     )
+
+
+def _in_date_range(dt: datetime, start: str, end: str) -> bool:
+    """イベント日が許容範囲内かチェック。空文字なら制限なし。"""
+    if start:
+        try:
+            if dt < _parse_date(start):
+                return False
+        except ValueError:
+            pass
+    if end:
+        try:
+            if dt > _parse_date(end):
+                return False
+        except ValueError:
+            pass
+    return True
 
 
 def _parse_date(date_str: str) -> datetime:
