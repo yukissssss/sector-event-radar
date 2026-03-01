@@ -40,21 +40,25 @@ def _kw_score(text: str, keywords: Dict[str, float]) -> float:
 def prefilter(
     articles: Sequence[Article],
     keywords: Dict[str, float],
-    stage_a_threshold: float = 6.0,
+    stage_a_threshold: float = 4.0,
     stage_b_top_k: int = 30,
 ) -> List[ScoredArticle]:
-    """Spec M1:
-    - Stage A: keyword weighted score, threshold >= 6.0
+    """Spec M1: 2段階記事フィルタ。
+    - Stage A: keyword weighted score（thresholdは config.yaml で可変、デフォルト4.0）
     - Stage B: TF-IDF cosine similarity, top_k only (if sklearn available)
+    - Stage A=0件時: score>0 の上位K件をfallbackで返す（sklearn有無に関わらず）
     """
     # ── Stage A: keyword scoring ──
+    all_scored: List[ScoredArticle] = []
     scored_a: List[ScoredArticle] = []
     dropped_a: int = 0
     for a in articles:
         text = f"{a.title}\n{a.body}"
         s = _kw_score(text, keywords)
+        sa = ScoredArticle(article=a, relevance_score=s)
+        all_scored.append(sa)
         if s >= stage_a_threshold:
-            scored_a.append(ScoredArticle(article=a, relevance_score=s))
+            scored_a.append(sa)
             logger.debug(
                 "Stage A PASS: score=%.1f title='%s'",
                 s, a.title[:80],
@@ -71,13 +75,34 @@ def prefilter(
         len(scored_a), len(articles), stage_a_threshold, dropped_a,
     )
 
-    if not _HAS_SKLEARN:
-        logger.info("Stage B skipped: sklearn not available. Returning %d articles", len(scored_a))
-        return scored_a
+    # Stage A が 0件の場合、上位5件のスコアをログ出力（閾値チューニング用）
+    if not scored_a and all_scored:
+        all_scored.sort(key=lambda x: x.relevance_score, reverse=True)
+        top5 = all_scored[:5]
+        for i, sa in enumerate(top5):
+            logger.info(
+                "Stage A near-miss #%d: score=%.1f title='%s'",
+                i + 1, sa.relevance_score, sa.article.title[:80],
+            )
 
+    # ── Stage A=0件 → フォールバック（sklearn有無に関わらず）──
+    # score>0の上位K件を返す。run_daily側のmax_articles_per_runが最終コストガード。
     if not scored_a:
-        logger.info("Stage B skipped: no articles passed Stage A")
-        return []
+        if not all_scored:
+            return []
+        all_scored.sort(key=lambda x: x.relevance_score, reverse=True)
+        fallback = [sa for sa in all_scored if sa.relevance_score > 0][:max(1, int(stage_b_top_k))]
+        logger.info(
+            "Stage A=0, fallback: returning top %d articles (score>0)",
+            len(fallback),
+        )
+        return fallback
+
+    # ── sklearn無し → Stage Aの結果をスコア降順で返す ──
+    if not _HAS_SKLEARN:
+        scored_a.sort(key=lambda x: x.relevance_score, reverse=True)
+        logger.info("Stage B skipped (no sklearn). Returning %d Stage A articles", len(scored_a))
+        return scored_a
 
     # ── Stage B: TF-IDF cosine similarity ──
     docs = [f"{sa.article.title}\n{sa.article.body}" for sa in scored_a]

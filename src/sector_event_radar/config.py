@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 
 class PrefilterConfig(BaseModel):
-    stage_a_threshold: float = 6.0
+    stage_a_threshold: float = 4.0
     stage_b_top_k: int = 30
 
 
@@ -28,7 +28,7 @@ class RssSource(BaseModel):
 class LlmConfig(BaseModel):
     """Claude抽出のコスト・安全ガードレール"""
     max_articles_per_run: int = 10  # 1回のrun_dailyでClaude APIに送る最大記事数
-    model: str = "claude-haiku-4-5-20241022"
+    model: str = "claude-haiku-4-5-20251001"
 
 
 class SourcesConfig(BaseModel):

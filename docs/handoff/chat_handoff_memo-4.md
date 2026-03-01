@@ -16,9 +16,9 @@ MR-LS（Mean Reversion Long-Short、z2/K3/excl_1、日米両市場）の補助�
 
 ---
 
-## 現在の状態（Session 13完了 2026-03-01）
+## 現在の状態（Session 14完了 2026-03-01）
 
-### 稼働中 — 全4カテゴリ稼働
+### 稼働中 — 全4カテゴリ稼働、shock初イベント抽出成功
 
 - **GitHub Actions**: 毎朝07:05 JST自動実行（DRY_RUN=false）
 - **FMP Stable API bellwether**: 9銘柄の決算日（`/stable/earnings-calendar`）→ 7 events
@@ -26,22 +26,46 @@ MR-LS（Mean Reversion Long-Short、z2/K3/excl_1、日米両市場）の補助�
 - **BLS static (macro)**: CPI/NFP/PPI — config.yaml静的日程（OMB公式PDF準拠）→ 18 events (cpi=6, nfp=6, ppi=6)
 - **BEA .ics (macro)**: GDP, PCE(Personal Income and Outlays) — 公式政府カレンダー自動取得 → 14 events
 - **FOMC static (macro)**: 2026年8回 — config.yaml静的日程（FRB公式）→ 4 events
-- **RSS→Claude抽出 (shock)**: SemiEngineering RSS → prefilter → Claude Haiku → 構造化イベント ✅ 稼働開始
+- **RSS→Claude抽出 (shock)**: SemiEngineering + EE Times + TrendForce → prefilter → Claude Haiku → 構造化イベント ✅ **初イベント抽出成功**
 - **ICS配信**: GitHub Pages → iPhoneカレンダー購読中
 - **DB永続化**: GitHub Releases（db-latestタグ）
-- **テスト**: 113本全通過
+- **テスト**: 128本（113 + shock回帰3本 + ICS表示12本）
 
-### 最新Actionsログ（Session 13 — 2026-03-01）
+### 最新Actionsログ（Session 14 — 2026-03-01）
 
 | カテゴリ | イベント数 | ソース |
 |---------|-----------|--------|
-| macro | 36 | BLS static 18 + BEA 14 + FOMC 4 |
+| macro | 37 | BLS static 18 + BEA 14 + FOMC 4 + 1 |
 | bellwether | 7 | FMP Stable |
 | flows | 6 | OPEX計算 |
-| shock | 0 | Claude抽出稼働中（抽出対象記事なしで0）|
-| **ICS all** | **49** | |
-| upsert | inserted=0, merged=49 | 安定運用 |
-| errors | 1 | BIS RSS SSL証明書のみ |
+| shock | 0 (ICS) | inserted=1（HBM4）だがICSウィンドウ外の可能性 |
+| **ICS all** | **50** | |
+| unscheduled | 1 | TrendForce「HBM4 Validation Expected in 2Q26」 |
+| upsert | inserted=1, merged=49 | shock初insert |
+| errors | 0 | BIS/SIA disabled化で完全消滅 |
+
+### RSSソース状況
+
+| ソース | 状態 | 記事数 |
+|--------|------|--------|
+| SemiEngineering | ✅ | 10 |
+| EE Times | ✅ | 10 |
+| TrendForce Semiconductors | ✅ | 10 |
+| BIS Press Releases | disabled | SSL証明書エラー |
+| SIA Press Releases | disabled | XMLパースエラー |
+
+### コスト安全策（Session 14で実装）
+
+- **既出記事スキップ**: articlesテーブルで過去run処理済みをスキップ
+- **同一run内URL dedup**: seen_in_run setで重複排除
+- **Claude投入上限**: max_articles_per_run: 10（config.yaml設定）
+- **失敗時再試行**: Claude API例外時はseenにしない→翌日自動再試行
+
+### ICS表示改善（Session 14で実装）
+
+- **タイトルプレフィックス**: `[MACRO]`/`[BW]`/`[FLOW]`/`[SHOCK]` — iPhone一覧で即座にカテゴリ判別
+- **DESCRIPTION定型化**: Risk/Confidence、Tags、Source URL、Evidence構造化表示
+- **DB→ICSでsource_url/evidence取得**: event_sources LEFT JOINで実データ表示
 
 ### 未稼働
 
@@ -56,14 +80,16 @@ MR-LS（Mean Reversion Long-Short、z2/K3/excl_1、日米両市場）の補助�
 | Secret | 状態 |
 |--------|------|
 | FMP_API_KEY | ✅ |
-| ANTHROPIC_API_KEY | ✅ Session 13で登録 |
+| ANTHROPIC_API_KEY | ✅ |
 | TE_API_KEY | ❌ Freeプラン制限 |
 
-### 既知のerrors（対応不要）
+### 既知の課題
 
-| エラー | 原因 | 対応 |
-|--------|------|------|
-| RSS BIS Press Releases failed: SSL CERTIFICATE_VERIFY_FAILED | bis.doc.govのSSL証明書がGitHub Actionsから検証不可 | RSS拡充時に代替ソース検討 |
+| 課題 | 状態 | 対応 |
+|------|------|------|
+| shock ICS 0件 | 調査中 | inserted=1だがICS shock出力が0。start_atがICS生成ウィンドウ外か、category不一致の可能性 |
+| SIA RSS XMLエラー | disabled | フィード形式の調査が必要 |
+| テスト未実行 | push後 | ローカルpytest 128本の確認が必要 |
 
 ---
 
@@ -78,6 +104,7 @@ sector-event-radar/
 │   └── handoff/                  ← 引き継ぎ文書
 │       ├── project_progress_log.md
 │       ├── chat_handoff_memo.md
+│       ├── session14_changes-4.md
 │       └── gpt_report_*.md
 ├── src/sector_event_radar/
 │   ├── run_daily.py              ← エントリポイント。4 collector独立try/except → upsert → ICS
@@ -86,14 +113,14 @@ sector-event-radar/
 │   │   ├── official_calendars.py ← BLS static + BEA .ics + FOMC static + HTML fallback(残存)
 │   │   └── rss.py                ← RSS/Atom取得
 │   ├── llm/
-│   │   └── claude_extract.py     ← Claude API抽出器 ✅ Session 13で稼働開始
+│   │   └── claude_extract.py     ← Claude API抽出器 ✅ source_idユニーク化済み
 │   ├── canonical.py              ← canonical_key: {category}:{entity}:{sub_type}:{YYYY-MM-DD}
-│   ├── config.py                 ← AppConfig + macro_rules_compiled() + fomc_dates + bls_mode + bls_static
+│   ├── config.py                 ← AppConfig + RssSource.disabled + LlmConfig + macro_rules_compiled()
 │   ├── models.py                 ← Event/Article Pydanticモデル
-│   ├── db.py                     ← SQLite冪等upsert
-│   ├── ics.py                    ← RFC5545 ICS生成（0件でも出力）
+│   ├── db.py                     ← SQLite冪等upsert + is_article_seen + mark_article_seen(ON CONFLICT UPDATE)
+│   ├── ics.py                    ← RFC5545 ICS生成（カテゴリprefix + DESCRIPTION定型化）
 │   ├── flows.py                  ← OPEX計算（第3金曜+祝日調整）
-│   ├── prefilter.py              ← RSS記事2段階フィルタ（ScoredArticle wrapper）
+│   ├── prefilter.py              ← RSS記事2段階フィルタ（Stage A/Bログ付き）
 │   ├── validate.py               ← Event検証
 │   └── impact.py / audit.py / notify.py  ← Phase 2スタブ
 ├── tests/
@@ -102,8 +129,10 @@ sector-event-radar/
 │   ├── test_scheduled.py                    (7本)
 │   ├── test_fmp_macro.py                    (15本)
 │   ├── test_official_calendars.py           (46本)
-│   └── test_bls_html_fallback.py            (30本)
-├── config.yaml                   ← keywords(23), macro_title_map(15), RSS(2), bellwether(9), fomc_dates(8), bls_mode, bls_static(CPI/NFP/PPI 2026全36日程)
+│   ├── test_bls_html_fallback.py            (30本)
+│   ├── test_shock_pipeline.py               (3本) ← Session 14新規
+│   └── test_ics_display.py                  (12本) ← Session 14新規
+├── config.yaml                   ← keywords(23), macro_title_map(15), RSS(5,うち2disabled), bellwether(9), fomc_dates(8), bls_mode, bls_static, llm
 └── pyproject.toml
 ```
 
@@ -117,13 +146,15 @@ sector-event-radar/
 - **0件ICS出力**: 全カテゴリのICSを常に出力（空でもVCALENDAR構造維持）
 - **FMP Stable API**: v3 Legacyは2025-08-31廃止。`/stable/earnings-calendar`のみ無料
 - **macro公式ソース**: BLS static(OMB) + BEA .ics自動取得 + FOMC静的日程
-- **BLS 3段フォールバック**: bls_mode=static(デフォルト) → ics時: .ics → HTML → static。bls.govはGitHub ActionsのIPをドメインごとブロック(403)
+- **BLS 3段フォールバック**: bls_mode=static(デフォルト) → ics時: .ics → HTML → static
 - **BLS static年次更新**: config.yaml `bls_static.years."2027"` を追加するPR。0件警告で更新忘れ検知
-- **BLS APIは別ホスト**: api.bls.gov はwww.bls.govとインフラが別。将来API利用時はActions上で疎通プローブ推奨
 - **ScoredArticle wrapper**: prefilter.pyのScoredArticleはArticleをラップ。`article.article.title`でアクセス
-- **shock抽出**: Claude Haiku使用。RSS title+summary → 構造化JSON。技術解説記事は抽出対象外（0 events正常）
-- **macro_rules_compiled()**: 呼び出し元で1回コンパイル、引数で渡す
-- **matched=0警告**: config不整合を即座に検知
+- **shock抽出**: Claude Haiku 4.5使用。RSS title+summary → 構造化JSON。技術解説記事は抽出対象外
+- **コスト3重ガード**: 既出スキップ + run内dedup + max_articles_per_run
+- **失敗時再試行**: extract_succeededフラグ。API例外時はseenにしない
+- **source_idユニーク化**: `claude:{url}#{hash(title:start_at)[:8]}`。1記事複数イベント対応
+- **ICSタイトルprefix**: `[MACRO]`/`[BW]`/`[FLOW]`/`[SHOCK]` — iPhone一覧でカテゴリ即判別
+- **DESCRIPTION定型化**: Risk/Confidence + Tags + Source URL + Evidence。改行は`\n`→`_escape()`でICS仕様変換
 
 ---
 
@@ -137,13 +168,15 @@ sector-event-radar/
   ├─ BLS static (config.yaml) → CPI/NFP/PPI 18 events ─────────┤
   ├─ BEA .ics → GDP/PCE 14 events ─────────────────────────────┤
   ├─ FOMC static → 4 events ───────────────────────────────────┤
-  └─ RSS(SemiEngineering) → prefilter → Claude Haiku → shock ──┤
+  └─ RSS(SemiEng+EETimes+TrendForce) → prefilter(Stage A/B) ──┤
+       → Seen filter(DB既出+run内dedup) → LLM guard(max 10)    │
+       → Claude Haiku 4.5 → shock events ──────────────────────┤
                                                                  │
               canonical_key → validate → upsert (SQLite)
                                │
-              events_to_ics (全5カテゴリ)
+              events_to_ics ([PREFIX] title + 定型DESCRIPTION)
                                │
-    all(49) / macro(36) / bellwether(7) / flows(6) / shock(0)
+    all(50) / macro(37) / bellwether(7) / flows(6) / shock(0)
                                │
          docs/ics/ → GitHub Pages → iPhoneカレンダー
 ```
@@ -152,5 +185,7 @@ sector-event-radar/
 
 ## 次のアクション
 
-1. **RSS拡充**（BIS代替 — SSL証明書問題回避、他の半導体ニュースソース追加）
-2. **Phase 2**: impact.py（イベント影響の統計分析）
+1. **shock ICS 0件調査**: inserted=1なのにICS shock出力が0。start_atウィンドウ or category確認
+2. **データ蓄積**: 数日放置してshockイベントの蓄積を観察。Seen filterの効果確認
+3. **iPhoneで見栄え確認**: [MACRO] prefix + DESCRIPTION改行が正しく表示されるか
+4. **Phase 2**: impact.py（イベント影響の統計分析）— shockデータが溜まったら着手

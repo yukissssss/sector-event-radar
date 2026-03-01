@@ -5,6 +5,62 @@
 
 ---
 
+## Session 14 — 2026-03-01
+
+工程1（RSS拡充＋shockの実績作り）＋工程2（iPhoneでの見栄え改善）。GPTレビュー2回分（計7項目）全反映。**shock初イベント抽出成功**。
+
+### 工程1: RSS拡充＋shock実績
+
+**RSSソース拡充**: EE Times、TrendForce Semiconductors追加。SIA Press Releasesも追加したがXMLパースエラーで即disabled。BIS Press Releasesは`disabled: true`で無害化（SSLエラーログ消滅）。
+
+**コスト安全策3重ガード**: (1)articlesテーブルで既出記事スキップ、(2)同一run内URL dedup（seen_in_run set）、(3)Claude投入記事数上限（max_articles_per_run: 10）。
+
+**失敗時再試行**: `extract_succeeded`フラグで制御。Claude API例外時はseenにしない→翌日自動再試行。
+
+**source_idユニーク化**: `claude:{url}#{hash(title:start_at)[:8]}`。1記事→複数イベント時のevent_sources主キー衝突を防止。
+
+**観測ログ強化**: Seen filter（already-processed / duplicate-in-run分離）、Stage A/B通過率、LLM guard、Claude summary。
+
+**shock初抽出**: TrendForce記事「HBM4 Validation Expected in 2Q26; Three Major Suppliers Pois」から1イベント抽出成功。`unscheduled: 1, inserted: 1`。
+
+### 工程2: iPhoneでの見栄え改善
+
+**ICSタイトル整形**: `CATEGORY_PREFIX`辞書で`[MACRO]`/`[BW]`/`[FLOW]`/`[SHOCK]`プレフィックス付与。
+
+**DESCRIPTION定型化**: `_format_description()`でRisk/Confidence、Tags、Source URL、Evidenceを構造化表示。全イベントにDESCRIPTION必須出力。
+
+**改行二重エスケープ修正**: GPT指摘。`"\\n".join`→`"\n".join`に修正。`_escape()`がICS仕様の`\n`に正しく変換。
+
+**DB→ICSでsource_url/evidence取得**: `_list_events_from_db()`でevent_sourcesをLEFT JOIN。過去蓄積イベントの説明欄が実データで埋まるように。
+
+### GPTレビュー反映
+
+**第1回（8.8/10）**: A)同一run内URL dedup、B)content_hashコメント整合、C)失敗時seen回避、D)source_idユニーク化。
+
+**第2回（9.2/10）**: A-2)ログカウンタ分離、B-2)INSERT OR IGNORE→ON CONFLICT DO UPDATE。ICS改行二重エスケープ修正。
+
+### デプロイトラブル
+
+- db.pyの`is_article_seen`/`mark_article_seen`がpush漏れ→ImportError→手動追加で解消
+- モデル名`claude-haiku-4-5-20241022`が存在せず全10件404→`claude-haiku-4-5-20251001`に修正
+- SIA RSS XMLパースエラー→`disabled: true`
+
+### 最終Actionsログ
+
+| カテゴリ | イベント数 | 変化 |
+|---------|-----------|------|
+| macro | 37 | +1（BEA新規マッチ？） |
+| bellwether | 7 | 変化なし |
+| flows | 6 | 変化なし |
+| shock | 0（ICS） | inserted=1だがICSウィンドウ外の可能性 |
+| **ICS all** | **50** | +1 |
+| unscheduled | 1 | HBM4イベント |
+| errors | 0 | BIS/SIA disabled化で完全消滅 |
+
+変更: `config.py`, `config.yaml`, `db.py`, `run_daily.py`, `prefilter.py`, `claude_extract.py`, `ics.py`, `test_shock_pipeline.py`(新規3本), `test_ics_display.py`(新規12本)
+
+---
+
 ## Session 13 — 2026-03-01
 
 ANTHROPIC_API_KEY登録 → shock（Claude抽出）パイプライン稼働開始。全4カテゴリが稼働状態に到達。

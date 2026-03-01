@@ -25,7 +25,7 @@ keywords:
   nonfarm: 2.0
 
 prefilter:
-  stage_a_threshold: 6.0
+  stage_a_threshold: 4.0
   stage_b_top_k: 30
 
 macro_title_map:
