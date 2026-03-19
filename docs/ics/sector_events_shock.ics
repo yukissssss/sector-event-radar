@@ -3,23 +3,8 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:gtc-2026-nvidia-ai-training-and-inferenc-f346cb7:2026-03-1
- 8
-DTSTAMP:20260318T224118Z
-SUMMARY:[SHOCK] GTC 2026 - NVIDIA AI training and inference product announc
- ements
-DTSTART:20260318T000000Z
-URL:https://www.trendforce.com/presscenter/news/20260318-12976.html
-DESCRIPTION:Risk: 40/100 | Confidence: 0.70\nTags: NVDA\, semis\, AI\nSourc
- e: https://www.trendforce.com/presscenter/news/20260318-12976.html\n---\nE
- vidence: NVIDIA shifted the focus of GTC 2026 toward deploying AI inferenc
- e
-CATEGORIES:shock
-X-SECTOR-TAGS:NVDA\,semis\,AI
-END:VEVENT
-BEGIN:VEVENT
 UID:macro:us:hbm4-validation-completion-expec:2026-04-01
-DTSTAMP:20260318T224118Z
+DTSTAMP:20260319T223940Z
 SUMMARY:[SHOCK] HBM4 Validation Completion Expected
 DTSTART:20260401T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260213-12929.html
@@ -33,7 +18,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-4ac17581:2026-04-1
  3
-DTSTAMP:20260318T224118Z
+DTSTAMP:20260319T223940Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Official Actions Under the Def
@@ -55,7 +40,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-5156fcc4:2026-04-2
  7
-DTSTAMP:20260318T224118Z
+DTSTAMP:20260319T223940Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Reporting of Violations of the
@@ -77,7 +62,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-bbc25ea5:2026-04-2
  7
-DTSTAMP:20260318T224118Z
+DTSTAMP:20260319T223940Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Foreign Availability Procedure
@@ -99,7 +84,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-310a659c:2026-04-2
  8
-DTSTAMP:20260318T224118Z
+DTSTAMP:20260319T223940Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Entity List and Unverified Lis
