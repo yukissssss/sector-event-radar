@@ -3,8 +3,23 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
+UID:shock:global:arm-launches-first-silicon-agi-cpu-for-d-adfbe1f:2026-03-2
+ 6
+DTSTAMP:20260326T224156Z
+SUMMARY:[SHOCK] Arm Launches First Silicon AGI CPU for Data Center
+DTSTART:20260326T215548Z
+URL:https://www.eetimes.com/arm-launches-first-silicon-cpu-targets-data-cen
+ ter-agentic-ai-workloads/
+DESCRIPTION:Risk: 45/100 | Confidence: 0.90\nTags: ARM\, CPUs\, data center
+ \, AI\nSource: https://www.eetimes.com/arm-launches-first-silicon-cpu-targ
+ ets-data-center-agentic-ai-workloads/\n---\nEvidence: Thu\, 26 Mar 2026 21
+ :55:48 +0000
+CATEGORIES:shock
+X-SECTOR-TAGS:ARM\,CPUs\,data center\,AI
+END:VEVENT
+BEGIN:VEVENT
 UID:macro:us:hbm4-validation-completion-expec:2026-04-01
-DTSTAMP:20260325T224948Z
+DTSTAMP:20260326T224156Z
 SUMMARY:[SHOCK] HBM4 Validation Completion Expected
 DTSTART:20260401T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260213-12929.html
@@ -18,7 +33,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-4ac17581:2026-04-1
  3
-DTSTAMP:20260325T224948Z
+DTSTAMP:20260326T224156Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Official Actions Under the Def
@@ -40,7 +55,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-5156fcc4:2026-04-2
  7
-DTSTAMP:20260325T224948Z
+DTSTAMP:20260326T224156Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Reporting of Violations of the
@@ -62,7 +77,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-bbc25ea5:2026-04-2
  7
-DTSTAMP:20260325T224948Z
+DTSTAMP:20260326T224156Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Foreign Availability Procedure
@@ -84,7 +99,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-310a659c:2026-04-2
  8
-DTSTAMP:20260325T224948Z
+DTSTAMP:20260326T224156Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Entity List and Unverified Lis
