@@ -4,7 +4,7 @@ PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:macro:us:hbm4-validation-completion-expec:2026-04-01
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] HBM4 Validation Completion Expected
 DTSTART:20260401T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260213-12929.html
@@ -18,7 +18,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:dram-contract-price-increase-expected-58-d47588e:2026-04-0
  1
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] DRAM Contract Price Increase Expected (58–63% QoQ)
 DTSTART:20260401T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260331-12995.html
@@ -32,7 +32,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nand-flash-contract-price-increase-expec-d47588e:2026-04-0
  1
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] NAND Flash Contract Price Increase Expected (70–75% QoQ)
 DTSTART:20260401T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260331-12995.html
@@ -45,7 +45,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-4ac17581:2026-04-1
  3
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Official Actions Under the Def
@@ -67,7 +67,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-5156fcc4:2026-04-2
  7
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Reporting of Violations of the
@@ -89,7 +89,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-bbc25ea5:2026-04-2
  7
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Foreign Availability Procedure
@@ -111,7 +111,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-310a659c:2026-04-2
  8
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Entity List and Unverified Lis
@@ -133,7 +133,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-8817b892:2026-05-2
  9
-DTSTAMP:20260331T224527Z
+DTSTAMP:20260401T225147Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Technology Letter of Explanati
