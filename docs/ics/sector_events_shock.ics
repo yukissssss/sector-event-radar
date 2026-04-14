@@ -3,31 +3,26 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:bis-comment-deadline-agency-information-4ac17581:2026-04-1
- 3
-DTSTAMP:20260413T225545Z
-SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
- ies\; Submission to the Office of Management and Budget (OMB) for Review a
- nd Approval\; Comment Request\; Official Actions Under the Def
-DTSTART:20260413T000000Z
-URL:https://www.federalregister.gov/documents/2026/02/10/2026-02578/agency-
- information-collection-activities-submission-to-the-office-of-management-a
- nd-budget-omb-for
-DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
- on\, bis\nSource: https://www.federalregister.gov/documents/2026/02/10/202
- 6-02578/agency-information-collection-activities-submission-to-the-office-
- of-management-and-budget-omb-for\n---\nEvidence: The Department of Commerc
- e\, in accordance with the Paperwork Reduction Act of 1995 (PRA)\, invites
-  the general public and other Federal agencies to comment on proposed\, an
- d continuing information collections\, which helps us assess the impact of
-  our information collection
+UID:shock:global:bsc-and-upc-launch-spinoff-for-european-ba6eea31:2026-04-1
+ 4
+DTSTAMP:20260414T225511Z
+SUMMARY:[SHOCK] BSC and UPC launch spinoff for European critical infrastruc
+ ture processors
+DTSTART:20260414T080000Z
+URL:https://www.eetimes.com/bsc-spin-off-to-secure-chips-for-critical-infra
+ structure/
+DESCRIPTION:Risk: 35/100 | Confidence: 0.90\nTags: processors\, critical in
+ frastructure\, Europe\nSource: https://www.eetimes.com/bsc-spin-off-to-sec
+ ure-chips-for-critical-infrastructure/\n---\nEvidence: BSC and UPC launch 
+ a spin-off creating auditable processor architecture for European critical
+  infrastructure.
 CATEGORIES:shock
-X-SECTOR-TAGS:semiconductor\,regulation\,bis
+X-SECTOR-TAGS:processors\,critical infrastructure\,Europe
 END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-5156fcc4:2026-04-2
  7
-DTSTAMP:20260413T225545Z
+DTSTAMP:20260414T225511Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Reporting of Violations of the
@@ -49,7 +44,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-bbc25ea5:2026-04-2
  7
-DTSTAMP:20260413T225545Z
+DTSTAMP:20260414T225511Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Foreign Availability Procedure
@@ -71,7 +66,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-310a659c:2026-04-2
  8
-DTSTAMP:20260413T225545Z
+DTSTAMP:20260414T225511Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Entity List and Unverified Lis
@@ -93,7 +88,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-8817b892:2026-05-2
  9
-DTSTAMP:20260413T225545Z
+DTSTAMP:20260414T225511Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Technology Letter of Explanati
@@ -115,7 +110,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3718577f:2026-06-0
  8
-DTSTAMP:20260413T225545Z
+DTSTAMP:20260414T225511Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Voluntary Self-Disclosure of A
@@ -137,7 +132,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-133c7c60:2026-06-0
  8
-DTSTAMP:20260413T225545Z
+DTSTAMP:20260414T225511Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Report of Requests for Restric
