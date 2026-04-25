@@ -5,7 +5,7 @@ X-WR-CALNAME:Sector Event Radar
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-5156fcc4:2026-04-2
  7
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Reporting of Violations of the
@@ -27,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-bbc25ea5:2026-04-2
  7
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Foreign Availability Procedure
@@ -49,7 +49,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-310a659c:2026-04-2
  8
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Entity List and Unverified Lis
@@ -70,7 +70,7 @@ X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-04-29
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20260429T180000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -81,7 +81,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:meta:earnings:2026-04-29
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] META Earnings
 DTSTART:20260429T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: meta\n---\nEvidence: FMP
@@ -91,7 +91,7 @@ X-SECTOR-TAGS:meta
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:msft:earnings:2026-04-29
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] MSFT Earnings
 DTSTART:20260429T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: msft\n---\nEvidence: FMP
@@ -101,7 +101,7 @@ X-SECTOR-TAGS:msft
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:googl:earnings:2026-04-29
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] GOOGL Earnings
 DTSTART:20260429T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: googl\n---\nEvidence: FM
@@ -111,7 +111,7 @@ X-SECTOR-TAGS:googl
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:amzn:earnings:2026-04-29
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] AMZN Earnings
 DTSTART:20260429T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: amzn\n---\nEvidence: FMP
@@ -121,7 +121,7 @@ X-SECTOR-TAGS:amzn
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-04-30
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] GDP (Advance Estimate)\\\, 1st Quarter 2026
 DTSTART:20260430T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -132,7 +132,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-04-30
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, March 2026
 DTSTART:20260430T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -143,7 +143,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:amd:earnings:2026-05-05
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] AMD Earnings
 DTSTART:20260505T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: amd\n---\nEvidence: FMP:
@@ -153,7 +153,7 @@ X-SECTOR-TAGS:amd
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:amzn:earnings:2026-05-07
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] AMZN Earnings
 DTSTART:20260507T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: amzn\n---\nEvidence: FMP
@@ -163,7 +163,7 @@ X-SECTOR-TAGS:amzn
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-05-08
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260508T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -174,7 +174,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-05-12
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260512T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -185,7 +185,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-05-13
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260513T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -196,7 +196,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:flows:us:opex:2026-05-15
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[FLOW] OPEX (US) 2026-05-15
 DTSTART:20260515T200000Z
 DTEND:20260515T210000Z
@@ -207,7 +207,7 @@ X-SECTOR-TAGS:OPEX
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:nvda:earnings:2026-05-20
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] NVDA Earnings
 DTSTART:20260520T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: nvda\n---\nEvidence: FMP
@@ -217,7 +217,7 @@ X-SECTOR-TAGS:nvda
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:nvda:earnings:2026-05-27
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] NVDA Earnings
 DTSTART:20260527T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: nvda\n---\nEvidence: FMP
@@ -227,7 +227,7 @@ X-SECTOR-TAGS:nvda
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-05-28
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] GDP (Second Estimate) and Corporate Profits\\\, 1st Quarter
   2026
 DTSTART:20260528T123000Z
@@ -240,7 +240,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-05-28
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, April 2026
 DTSTART:20260528T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -252,7 +252,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-8817b892:2026-05-2
  9
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Technology Letter of Explanati
@@ -273,7 +273,7 @@ X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-06-05
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260605T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -285,7 +285,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3718577f:2026-06-0
  8
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Voluntary Self-Disclosure of A
@@ -307,7 +307,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-133c7c60:2026-06-0
  8
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Report of Requests for Restric
@@ -328,7 +328,7 @@ X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-06-10
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260610T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -339,7 +339,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-06-11
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260611T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -350,7 +350,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-06-17
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20260617T180000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -361,7 +361,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:flows:us:opex:2026-06-19
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[FLOW] OPEX (US) 2026-06-19
 DTSTART:20260619T200000Z
 DTEND:20260619T210000Z
@@ -372,7 +372,7 @@ X-SECTOR-TAGS:OPEX
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-06-25
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] GDP (Third Estimate)\\\, Industries\\\, Corporate Profits\\
  \, State GDP\\\, and State Personal Income\\\, 1st Quarter 2026
 DTSTART:20260625T123000Z
@@ -385,7 +385,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-06-25
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, May 2026
 DTSTART:20260625T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -396,7 +396,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-07-02
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260702T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -407,7 +407,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-07-14
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260714T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -418,7 +418,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-07-15
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260715T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -429,7 +429,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:bellwether:tsm:earnings:2026-07-16
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[BW] TSM Earnings
 DTSTART:20260716T200000Z
 DESCRIPTION:Risk: 40/100 | Confidence: 0.90\nTags: tsm\n---\nEvidence: FMP:
@@ -439,7 +439,7 @@ X-SECTOR-TAGS:tsm
 END:VEVENT
 BEGIN:VEVENT
 UID:flows:us:opex:2026-07-17
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[FLOW] OPEX (US) 2026-07-17
 DTSTART:20260717T200000Z
 DTEND:20260717T210000Z
@@ -450,7 +450,7 @@ X-SECTOR-TAGS:OPEX
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-07-29
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20260729T180000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -461,7 +461,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-07-30
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] GDP (Advance Estimate)\\\, 2nd Quarter 2026
 DTSTART:20260730T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -472,7 +472,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-07-30
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, June 2026
 DTSTART:20260730T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -483,7 +483,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-08-07
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260807T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -494,7 +494,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-08-12
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260812T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -505,7 +505,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-08-13
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260813T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -516,7 +516,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:flows:us:opex:2026-08-21
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[FLOW] OPEX (US) 2026-08-21
 DTSTART:20260821T200000Z
 DTEND:20260821T210000Z
@@ -527,7 +527,7 @@ X-SECTOR-TAGS:OPEX
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-08-26
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] GDP (Second Estimate) and Corporate Profits\\\, 2nd Quarter
   2026
 DTSTART:20260826T123000Z
@@ -540,7 +540,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-08-26
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, July 2026
 DTSTART:20260826T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -551,7 +551,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-09-04
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260904T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -562,7 +562,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-09-10
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260910T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -573,7 +573,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-09-11
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260911T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -584,7 +584,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-09-16
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20260916T180000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -595,7 +595,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:flows:us:opex:2026-09-18
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[FLOW] OPEX (US) 2026-09-18
 DTSTART:20260918T200000Z
 DTEND:20260918T210000Z
@@ -606,7 +606,7 @@ X-SECTOR-TAGS:OPEX
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-09-30
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] GDP (Third Estimate)\\\, Industries\\\, Corporate Profits\\
  \, State GDP\\\, and State Personal Income\\\, 2nd Quarter 2026\\\; State 
  PCE\\\, 2025
@@ -619,7 +619,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-10-02
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20261002T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -630,7 +630,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-10-14
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20261014T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -641,7 +641,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-10-15
-DTSTAMP:20260424T225213Z
+DTSTAMP:20260425T225015Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20261015T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
