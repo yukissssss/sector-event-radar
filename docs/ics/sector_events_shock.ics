@@ -3,53 +3,9 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:bis-comment-deadline-agency-information-5156fcc4:2026-04-2
- 7
-DTSTAMP:20260427T230108Z
-SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
- ies\; Submission to the Office of Management and Budget (OMB) for Review a
- nd Approval\; Comment Request\; Reporting of Violations of the
-DTSTART:20260427T000000Z
-URL:https://www.federalregister.gov/documents/2026/02/24/2026-03676/agency-
- information-collection-activities-submission-to-the-office-of-management-a
- nd-budget-omb-for
-DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
- on\, bis\nSource: https://www.federalregister.gov/documents/2026/02/24/202
- 6-03676/agency-information-collection-activities-submission-to-the-office-
- of-management-and-budget-omb-for\n---\nEvidence: The Department of Commerc
- e\, in accordance with the Paperwork Reduction Act of 1995 (PRA)\, invites
-  the general public and other Federal agencies to comment on proposed\, an
- d continuing information collections\, which helps us assess the impact of
-  our information collection
-CATEGORIES:shock
-X-SECTOR-TAGS:semiconductor\,regulation\,bis
-END:VEVENT
-BEGIN:VEVENT
-UID:shock:global:bis-comment-deadline-agency-information-bbc25ea5:2026-04-2
- 7
-DTSTAMP:20260427T230108Z
-SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
- ies\; Submission to the Office of Management and Budget (OMB) for Review a
- nd Approval\; Comment Request\; Foreign Availability Procedure
-DTSTART:20260427T000000Z
-URL:https://www.federalregister.gov/documents/2026/02/24/2026-03675/agency-
- information-collection-activities-submission-to-the-office-of-management-a
- nd-budget-omb-for
-DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
- on\, bis\nSource: https://www.federalregister.gov/documents/2026/02/24/202
- 6-03675/agency-information-collection-activities-submission-to-the-office-
- of-management-and-budget-omb-for\n---\nEvidence: The Department of Commerc
- e\, in accordance with the Paperwork Reduction Act of 1995 (PRA)\, invites
-  the general public and other Federal agencies to comment on proposed\, an
- d continuing information collections\, which helps us assess the impact of
-  our information collection
-CATEGORIES:shock
-X-SECTOR-TAGS:semiconductor\,regulation\,bis
-END:VEVENT
-BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-310a659c:2026-04-2
  8
-DTSTAMP:20260427T230108Z
+DTSTAMP:20260428T230303Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Entity List and Unverified Lis
@@ -71,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-8817b892:2026-05-2
  9
-DTSTAMP:20260427T230108Z
+DTSTAMP:20260428T230303Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Technology Letter of Explanati
@@ -93,7 +49,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3718577f:2026-06-0
  8
-DTSTAMP:20260427T230108Z
+DTSTAMP:20260428T230303Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Voluntary Self-Disclosure of A
@@ -115,7 +71,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-133c7c60:2026-06-0
  8
-DTSTAMP:20260427T230108Z
+DTSTAMP:20260428T230303Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Report of Requests for Restric
