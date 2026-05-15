@@ -3,26 +3,9 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:memory-shortage-as-ai-infrastructure-dom-785f8c1:2026-05-1
- 4
-DTSTAMP:20260514T230606Z
-SUMMARY:[SHOCK] Memory shortage as AI infrastructure dominates semiconducto
- r supply
-DTSTART:20260514T200000Z
-URL:https://www.eetimes.com/automakers-face-memory-shock-as-ai-uses-up-semi
- conductor-supply/
-DESCRIPTION:Risk: 55/100 | Confidence: 0.90\nTags: semiconductors\, automot
- ive\, AI infrastructure\nSource: https://www.eetimes.com/automakers-face-m
- emory-shock-as-ai-uses-up-semiconductor-supply/\n---\nEvidence: Automakers
-  face a severe memory shortage as AI infrastructure dominates semiconducto
- r supply.
-CATEGORIES:shock
-X-SECTOR-TAGS:semiconductors\,automotive\,AI infrastructure
-END:VEVENT
-BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-8817b892:2026-05-2
  9
-DTSTAMP:20260514T230606Z
+DTSTAMP:20260515T230422Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Technology Letter of Explanati
@@ -44,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3718577f:2026-06-0
  8
-DTSTAMP:20260514T230606Z
+DTSTAMP:20260515T230422Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Voluntary Self-Disclosure of A
@@ -66,7 +49,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-133c7c60:2026-06-0
  8
-DTSTAMP:20260514T230606Z
+DTSTAMP:20260515T230422Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Report of Requests for Restric
