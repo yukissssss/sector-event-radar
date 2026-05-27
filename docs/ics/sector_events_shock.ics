@@ -5,7 +5,7 @@ X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-8817b892:2026-05-2
  9
-DTSTAMP:20260526T231749Z
+DTSTAMP:20260527T232353Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Technology Letter of Explanati
@@ -27,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3718577f:2026-06-0
  8
-DTSTAMP:20260526T231749Z
+DTSTAMP:20260527T232353Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Voluntary Self-Disclosure of A
@@ -49,7 +49,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-133c7c60:2026-06-0
  8
-DTSTAMP:20260526T231749Z
+DTSTAMP:20260527T232353Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Report of Requests for Restric
@@ -65,6 +65,28 @@ DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
   the general public and other Federal agencies to comment on proposed\, an
  d continuing information collections\, which helps us assess the impact of
   our information collection
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:bis-comment-deadline-reporting-for-calen-35dd361:2026-06-1
+ 5
+DTSTAMP:20260527T232353Z
+SUMMARY:[SHOCK] BIS Comment Deadline: Reporting for Calendar Year 2025 on O
+ ffsets Agreements Related to Sales of Defense Articles or Defense Services
+  to Foreign Countries or Foreign Firms
+DTSTART:20260615T000000Z
+URL:https://www.federalregister.gov/documents/2026/05/27/2026-10521/reporti
+ ng-for-calendar-year-2025-on-offsets-agreements-related-to-sales-of-defens
+ e-articles-or
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/05/27/202
+ 6-10521/reporting-for-calendar-year-2025-on-offsets-agreements-related-to-
+ sales-of-defense-articles-or\n---\nEvidence: This notice is to remind the 
+ public that U.S. firms are required to report annually to the Department o
+ f Commerce (Commerce) information on contracts for the sale of defense art
+ icles or defense services to foreign countries or foreign firms that are s
+ ubject to offsets a
 CATEGORIES:shock
 X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
