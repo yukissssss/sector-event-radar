@@ -3,39 +3,15 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:bis-comment-deadline-reporting-for-calen-35dd361:2026-06-1
- 5
-DTSTAMP:20260615T235518Z
-SUMMARY:[SHOCK] BIS Comment Deadline: Reporting for Calendar Year 2025 on O
- ffsets Agreements Related to Sales of Defense Articles or Defense Services
-  to Foreign Countries or Foreign Firms
-DTSTART:20260615T000000Z
-URL:https://www.federalregister.gov/documents/2026/05/27/2026-10521/reporti
- ng-for-calendar-year-2025-on-offsets-agreements-related-to-sales-of-defens
- e-articles-or
-DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
- on\, bis\nSource: https://www.federalregister.gov/documents/2026/05/27/202
- 6-10521/reporting-for-calendar-year-2025-on-offsets-agreements-related-to-
- sales-of-defense-articles-or\n---\nEvidence: This notice is to remind the 
- public that U.S. firms are required to report annually to the Department o
- f Commerce (Commerce) information on contracts for the sale of defense art
- icles or defense services to foreign countries or foreign firms that are s
- ubject to offsets a
+UID:shock:global:amd-acquires-mext-aa9dfb68:2026-06-16
+DTSTAMP:20260616T234219Z
+SUMMARY:[SHOCK] AMD acquires MEXT
+DTSTART:20260616T135023Z
+URL:https://www.eetimes.com/amd-snaps-mext-to-break-the-memory-wall/
+DESCRIPTION:Risk: 35/100 | Confidence: 0.85\nTags: AMD\, MEXT\, memory\, AI
+ \nSource: https://www.eetimes.com/amd-snaps-mext-to-break-the-memory-wall/
+ \n---\nEvidence: PUBLISHED: Tue\, 16 Jun 2026 13:50:23 +0000
 CATEGORIES:shock
-X-SECTOR-TAGS:semiconductor\,regulation\,bis
-END:VEVENT
-BEGIN:VEVENT
-UID:shock:global:tensordyne-tapes-out-lns-based-ai-chip-0c8e805e:2026-06-15
-DTSTAMP:20260615T235518Z
-SUMMARY:[SHOCK] Tensordyne Tapes Out LNS-Based AI Chip
-DTSTART:20260615T160000Z
-URL:https://www.eetimes.com/tensordyne-tapes-out-lns-based-ai-chip-claims-h
- uge-power-advantages/
-DESCRIPTION:Risk: 45/100 | Confidence: 0.90\nTags: AI chips\, semiconductor
- s\, LNS\, power efficiency\nSource: https://www.eetimes.com/tensordyne-tap
- es-out-lns-based-ai-chip-claims-huge-power-advantages/\n---\nEvidence: Mon
- \, 15 Jun 2026 16:00:00 +0000
-CATEGORIES:shock
-X-SECTOR-TAGS:AI chips\,semiconductors\,LNS\,power efficiency
+X-SECTOR-TAGS:AMD\,MEXT\,memory\,AI
 END:VEVENT
 END:VCALENDAR
