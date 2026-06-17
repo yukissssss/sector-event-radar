@@ -2,16 +2,4 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
-BEGIN:VEVENT
-UID:shock:global:amd-acquires-mext-aa9dfb68:2026-06-16
-DTSTAMP:20260616T234219Z
-SUMMARY:[SHOCK] AMD acquires MEXT
-DTSTART:20260616T135023Z
-URL:https://www.eetimes.com/amd-snaps-mext-to-break-the-memory-wall/
-DESCRIPTION:Risk: 35/100 | Confidence: 0.85\nTags: AMD\, MEXT\, memory\, AI
- \nSource: https://www.eetimes.com/amd-snaps-mext-to-break-the-memory-wall/
- \n---\nEvidence: PUBLISHED: Tue\, 16 Jun 2026 13:50:23 +0000
-CATEGORIES:shock
-X-SECTOR-TAGS:AMD\,MEXT\,memory\,AI
-END:VEVENT
 END:VCALENDAR
