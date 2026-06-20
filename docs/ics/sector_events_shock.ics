@@ -2,4 +2,18 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
+BEGIN:VEVENT
+UID:shock:global:structural-shortages-of-high-end-special-54d613b:2026-07-0
+ 1
+DTSTAMP:20260620T231907Z
+SUMMARY:[SHOCK] Structural shortages of high-end specialty MLCCs may emerge
+DTSTART:20260701T000000Z
+URL:https://www.trendforce.com/presscenter/news/20260617-13105.html
+DESCRIPTION:Risk: 35/100 | Confidence: 0.50\nTags: MLCCs\, electronic compo
+ nents\, semis\nSource: https://www.trendforce.com/presscenter/news/2026061
+ 7-13105.html\n---\nEvidence: risk of structural shortages in the second ha
+ lf of 2026
+CATEGORIES:shock
+X-SECTOR-TAGS:MLCCs\,electronic components\,semis
+END:VEVENT
 END:VCALENDAR
