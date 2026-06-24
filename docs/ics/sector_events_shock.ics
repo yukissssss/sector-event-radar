@@ -5,7 +5,7 @@ X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:shock:global:structural-shortages-of-high-end-special-54d613b:2026-07-0
  1
-DTSTAMP:20260623T231527Z
+DTSTAMP:20260624T231520Z
 SUMMARY:[SHOCK] Structural shortages of high-end specialty MLCCs may emerge
 DTSTART:20260701T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260617-13105.html
@@ -19,7 +19,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:consumer-dram-shortages-extend-to-ddr2-p-c6b0039:2026-07-0
  1
-DTSTAMP:20260623T231527Z
+DTSTAMP:20260624T231520Z
 SUMMARY:[SHOCK] Consumer DRAM Shortages Extend to DDR2 Products with Contra
  ct Prices Continuing to Rise
 DTSTART:20260701T000000Z
@@ -29,5 +29,27 @@ DESCRIPTION:Risk: 65/100 | Confidence: 0.55\nTags: DRAM\, memory\, DDR2\, D
  ml\n---\nEvidence: contract prices expected to continue rising in 3Q26
 CATEGORIES:shock
 X-SECTOR-TAGS:DRAM\,memory\,DDR2\,DDR3
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:bis-comment-deadline-agency-information-2ece9699:2026-08-2
+ 4
+DTSTAMP:20260624T231520Z
+SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
+ ies\; Submission to the Office of Management and Budget (OMB) for Review a
+ nd Approval\; Comment Request\; Five-Year Records Retention Re
+DTSTART:20260824T000000Z
+URL:https://www.federalregister.gov/documents/2026/06/24/2026-12727/agency-
+ information-collection-activities-submission-to-the-office-of-management-a
+ nd-budget-omb-for
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/06/24/202
+ 6-12727/agency-information-collection-activities-submission-to-the-office-
+ of-management-and-budget-omb-for\n---\nEvidence: The Department of Commerc
+ e\, in accordance with the Paperwork Reduction Act of 1995 (PRA)\, invites
+  the general public and other Federal agencies to comment on proposed\, an
+ d continuing information collections\, which helps us assess the impact of
+  our information collection
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
 END:VCALENDAR
