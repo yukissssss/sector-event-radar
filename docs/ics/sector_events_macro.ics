@@ -4,7 +4,7 @@ PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - macro
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-07-02
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260702T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -15,7 +15,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-07-14
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260714T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -26,7 +26,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-07-15
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260715T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -37,7 +37,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-07-29
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20260729T180000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -48,7 +48,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-07-30
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] GDP (Advance Estimate)\\\, 2nd Quarter 2026
 DTSTART:20260730T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -59,7 +59,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-07-30
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, June 2026
 DTSTART:20260730T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -70,7 +70,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-08-07
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260807T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -81,7 +81,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-08-12
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260812T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -92,7 +92,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-08-13
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260813T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -103,7 +103,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-08-26
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] GDP (Second Estimate) and Corporate Profits\\\, 2nd Quarter
   2026
 DTSTART:20260826T123000Z
@@ -116,7 +116,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-08-26
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, July 2026
 DTSTART:20260826T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -127,7 +127,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-09-04
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20260904T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -138,7 +138,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-09-10
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20260910T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -149,7 +149,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-09-11
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20260911T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -160,7 +160,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-09-16
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20260916T180000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -171,7 +171,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-09-30
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] GDP (Third Estimate)\\\, Industries\\\, Corporate Profits\\
  \, State GDP\\\, and State Personal Income\\\, 2nd Quarter 2026\\\; State 
  PCE\\\, 2025
@@ -184,7 +184,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-10-02
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20261002T123000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -195,7 +195,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-10-14
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20261014T123000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -206,7 +206,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-10-15
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20261015T123000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -217,7 +217,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-10-28
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20261028T180000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -228,7 +228,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-10-29
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] GDP (Advance Estimate)\\\, 3rd Quarter 2026
 DTSTART:20261029T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -239,7 +239,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-10-29
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, September 2026
 DTSTART:20261029T123000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -250,7 +250,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-11-06
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20261106T133000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -261,7 +261,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-11-10
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20261110T133000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -272,7 +272,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-11-13
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20261113T133000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -283,7 +283,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-11-25
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] GDP (Second Estimate) and Corporate Profits\\\, 3rd Quarter
   2026
 DTSTART:20261125T133000Z
@@ -296,7 +296,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-11-25
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, October 2026
 DTSTART:20261125T133000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -307,7 +307,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-12-02
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] GDP by County and Personal Income by County\\\, 2025
 DTSTART:20261202T133000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
@@ -318,7 +318,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:nfp:2026-12-04
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Employment Situation
 DTSTART:20261204T133000Z
 URL:https://www.bls.gov/schedule/news_release/empsit.htm
@@ -329,7 +329,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:fomc:2026-12-09
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] FOMC Rate Decision
 DTSTART:20261209T190000Z
 URL:https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
@@ -340,7 +340,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:cpi:2026-12-10
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Consumer Price Index
 DTSTART:20261210T133000Z
 URL:https://www.bls.gov/schedule/news_release/cpi.htm
@@ -351,7 +351,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-12-10
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Real Personal Consumption Expenditures by State and Real Pe
  rsonal Income by State\\\, 2025
 DTSTART:20261210T133000Z
@@ -364,7 +364,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:ppi:2026-12-15
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Producer Price Index
 DTSTART:20261215T133000Z
 URL:https://www.bls.gov/schedule/news_release/ppi.htm
@@ -375,7 +375,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:gdp:2026-12-23
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] GDP (Third Estimate)\\\, Industries\\\, Corporate Profits\\
  \, State GDP\\\, and State Personal Income\\\, 3rd Quarter 2026
 DTSTART:20261223T133000Z
@@ -388,7 +388,7 @@ CATEGORIES:macro
 END:VEVENT
 BEGIN:VEVENT
 UID:macro:us:pce:2026-12-23
-DTSTAMP:20260628T231318Z
+DTSTAMP:20260629T230837Z
 SUMMARY:[MACRO] Personal Income and Outlays\\\, November 2026
 DTSTART:20261223T133000Z
 URL:https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics
