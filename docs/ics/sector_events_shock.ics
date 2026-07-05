@@ -5,7 +5,7 @@ X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-2ece9699:2026-08-2
  4
-DTSTAMP:20260704T230546Z
+DTSTAMP:20260705T231146Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Five-Year Records Retention Re
@@ -23,5 +23,47 @@ DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
   our information collection
 CATEGORIES:shock
 X-SECTOR-TAGS:semiconductor\,regulation\,bis
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
+ 1
+DTSTAMP:20260705T231146Z
+SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
+ ly Impact
+DTSTART:20270101T000000Z
+URL:https://www.trendforce.com/presscenter/news/20260119-12883.html
+DESCRIPTION:Risk: 35/100 | Confidence: 0.50\nTags: MU\, PSMC\, DRAM\, semic
+ onductors\nSource: https://www.trendforce.com/presscenter/news/20260119-12
+ 883.html\n---\nEvidence: improving the global DRAM supply outlook by 2027
+CATEGORIES:shock
+X-SECTOR-TAGS:MU\,PSMC\,DRAM\,semiconductors
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
+ 1
+DTSTAMP:20260705T231146Z
+SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
+ 027
+DTSTART:20270101T000000Z
+URL:https://www.trendforce.com/presscenter/news/20260602-13074.html
+DESCRIPTION:Risk: 35/100 | Confidence: 0.50\nTags: DRAM\, HBM\, memory\nSou
+ rce: https://www.trendforce.com/presscenter/news/20260602-13074.html\n---\
+ nEvidence: HBM Contract Prices Expected to Surge Multiples Higher in 2027
+CATEGORIES:shock
+X-SECTOR-TAGS:DRAM\,HBM\,memory
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
+ 1
+DTSTAMP:20260705T231146Z
+SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
+ y constraints
+DTSTART:20270101T000000Z
+URL:https://www.trendforce.com/presscenter/news/20260630-13127.html
+DESCRIPTION:Risk: 35/100 | Confidence: 0.50\nTags: foundries\, AI\, mature-
+ nodes\, semis\nSource: https://www.trendforce.com/presscenter/news/2026063
+ 0-13127.html\n---\nEvidence: extending mature-node price increases in 2027
+CATEGORIES:shock
+X-SECTOR-TAGS:foundries\,AI\,mature-nodes\,semis
 END:VEVENT
 END:VCALENDAR
