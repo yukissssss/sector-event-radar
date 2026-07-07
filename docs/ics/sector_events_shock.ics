@@ -3,9 +3,30 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
+UID:shock:global:bis-comment-deadline-notice-of-request-f-4ee042d:2026-07-2
+ 1
+DTSTAMP:20260707T230932Z
+SUMMARY:[SHOCK] BIS Comment Deadline: Notice of Request for Public Comments
+  on Section 232 National Security Investigation of Anthracite Coal
+DTSTART:20260721T000000Z
+URL:https://www.federalregister.gov/documents/2026/07/07/2026-13663/notice-
+ of-request-for-public-comments-on-section-232-national-security-investigat
+ ion-of-anthracite
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/07/07/202
+ 6-13663/notice-of-request-for-public-comments-on-section-232-national-secu
+ rity-investigation-of-anthracite\n---\nEvidence: On June 29\, 2026\, the S
+ ecretary of Commerce initiated an investigation to determine the effects o
+ n the national security of imports of anthracite coal. This investigation 
+ has been initiated under section 232 of the Trade Expansion Act of 1962\, 
+ as amended (Section 232).
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
+END:VEVENT
+BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-2ece9699:2026-08-2
  4
-DTSTAMP:20260706T231816Z
+DTSTAMP:20260707T230932Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Five-Year Records Retention Re
@@ -27,7 +48,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20260706T231816Z
+DTSTAMP:20260707T230932Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -41,7 +62,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20260706T231816Z
+DTSTAMP:20260707T230932Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -55,7 +76,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20260706T231816Z
+DTSTAMP:20260707T230932Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
