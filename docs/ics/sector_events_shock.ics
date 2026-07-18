@@ -3,38 +3,9 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:tsmc-raises-2026-capital-budget-to-64b-a-a2aca56:2026-07-1
- 7
-DTSTAMP:20260717T225801Z
-SUMMARY:[SHOCK] TSMC Raises 2026 Capital Budget to $64B\, Adds $100B U.S. I
- nvestment
-DTSTART:20260717T055559Z
-URL:https://www.eetimes.com/tsmc-boosts-2026-expansion-budget-adds-100b-to-
- u-s-investment/
-DESCRIPTION:Risk: 35/100 | Confidence: 0.90\nTags: TSMC\, semis\, AI\nSourc
- e: https://www.eetimes.com/tsmc-boosts-2026-expansion-budget-adds-100b-to-
- u-s-investment/\n---\nEvidence: TSMC is raising its 2026 capital budget to
-  $64 billion and adding $100 billion to its U.S. investment
-CATEGORIES:shock
-X-SECTOR-TAGS:TSMC\,semis\,AI
-END:VEVENT
-BEGIN:VEVENT
-UID:shock:global:asml-raises-outlook-plans-more-euv-capac-ec1024f:2026-07-1
- 7
-DTSTAMP:20260717T225801Z
-SUMMARY:[SHOCK] ASML Raises Outlook\, Plans More EUV Capacity
-DTSTART:20260717T140000Z
-URL:https://www.eetimes.com/asml-raises-outlook-plans-more-euv-capacity/
-DESCRIPTION:Risk: 35/100 | Confidence: 0.85\nTags: ASML\, semis\, lithograp
- hy\, EUV\nSource: https://www.eetimes.com/asml-raises-outlook-plans-more-e
- uv-capacity/\n---\nEvidence: Fri\, 17 Jul 2026 14:00:00
-CATEGORIES:shock
-X-SECTOR-TAGS:ASML\,semis\,lithography\,EUV
-END:VEVENT
-BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-notice-of-request-f-4ee042d:2026-07-2
  1
-DTSTAMP:20260717T225801Z
+DTSTAMP:20260718T225826Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Notice of Request for Public Comments
   on Section 232 National Security Investigation of Anthracite Coal
 DTSTART:20260721T000000Z
@@ -55,7 +26,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-2ece9699:2026-08-2
  4
-DTSTAMP:20260717T225801Z
+DTSTAMP:20260718T225826Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Five-Year Records Retention Re
@@ -77,7 +48,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20260717T225801Z
+DTSTAMP:20260718T225826Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -91,7 +62,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20260717T225801Z
+DTSTAMP:20260718T225826Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -105,7 +76,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20260717T225801Z
+DTSTAMP:20260718T225826Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
