@@ -3,23 +3,9 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:microchip-acquires-edge-ai-chip-startup-186d7714:2026-07-2
- 8
-DTSTAMP:20260728T231001Z
-SUMMARY:[SHOCK] Microchip Acquires Edge AI Chip Startup Hailo
-DTSTART:20260728T170430Z
-URL:https://www.eetimes.com/microchip-acquires-edge-ai-chip-startup-hailo/
-DESCRIPTION:Risk: 35/100 | Confidence: 0.90\nTags: MCHP\, Hailo\, edge AI\,
-  semiconductors\nSource: https://www.eetimes.com/microchip-acquires-edge-a
- i-chip-startup-hailo/\n---\nEvidence: Microchip Acquires Edge AI Chip Star
- tup Hailo\nTue\, 28 Jul 2026 17:04:30 +0000
-CATEGORIES:shock
-X-SECTOR-TAGS:MCHP\,Hailo\,edge AI\,semiconductors
-END:VEVENT
-BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-2ece9699:2026-08-2
  4
-DTSTAMP:20260728T231001Z
+DTSTAMP:20260729T230749Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Five-Year Records Retention Re
@@ -41,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-implementation-of-e-db1ac2d:2026-08-2
  4
-DTSTAMP:20260728T231001Z
+DTSTAMP:20260729T230749Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Implementation of EAR Export Controls
   on Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Rela
  ted Changes
@@ -63,7 +49,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-rule-effective-implementation-of-ear-db1ac2d:2026-11-2
  0
-DTSTAMP:20260728T231001Z
+DTSTAMP:20260729T230749Z
 SUMMARY:[SHOCK] BIS Rule Effective: Implementation of EAR Export Controls o
  n Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Relate
  d Changes
@@ -85,7 +71,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20260728T231001Z
+DTSTAMP:20260729T230749Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -99,7 +85,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20260728T231001Z
+DTSTAMP:20260729T230749Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -113,7 +99,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20260728T231001Z
+DTSTAMP:20260729T230749Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
