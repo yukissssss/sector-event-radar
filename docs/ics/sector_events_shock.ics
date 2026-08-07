@@ -5,7 +5,7 @@ X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-2ece9699:2026-08-2
  4
-DTSTAMP:20260805T231039Z
+DTSTAMP:20260807T013214Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Five-Year Records Retention Re
@@ -27,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-implementation-of-e-db1ac2d:2026-08-2
  4
-DTSTAMP:20260805T231039Z
+DTSTAMP:20260807T013214Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Implementation of EAR Export Controls
   on Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Rela
  ted Changes
@@ -47,9 +47,52 @@ CATEGORIES:shock
 X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
 BEGIN:VEVENT
+UID:shock:global:bis-rule-effective-dpas-directive-alloca-d3d7fd7:2026-08-2
+ 7
+DTSTAMP:20260807T013214Z
+SUMMARY:[SHOCK] BIS Rule Effective: DPAS Directive Allocation Order and Add
+ itional Requirements for Recoverable Critical Minerals and Materials
+DTSTART:20260827T000000Z
+URL:https://www.federalregister.gov/documents/2026/08/06/2026-16078/dpas-di
+ rective-allocation-order-and-additional-requirements-for-recoverable-criti
+ cal-minerals-and
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/08/06/202
+ 6-16078/dpas-directive-allocation-order-and-additional-requirements-for-re
+ coverable-critical-minerals-and\n---\nEvidence: The Bureau of Industry and
+  Security ("BIS") is publishing this temporary final rule to restrict the 
+ exportation of black mass and tungsten waste and scrap without a license. 
+ Specifically\, as of August 27\, 2026\, U.S. persons engaged in the sale o
+ f black mass and tungsten
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:bis-comment-deadline-request-for-public-93a013f8:2026-08-2
+ 7
+DTSTAMP:20260807T013214Z
+SUMMARY:[SHOCK] BIS Comment Deadline: Request for Public Comments on the Pr
+ oposed Implementation of Duties on Additional Aluminum\, Steel\, and Coppe
+ r Derivative Articles Under Section 232
+DTSTART:20260827T000000Z
+URL:https://www.federalregister.gov/documents/2026/08/06/2026-15961/request
+ -for-public-comments-on-the-proposed-implementation-of-duties-on-additiona
+ l-aluminum-steel
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/08/06/202
+ 6-15961/request-for-public-comments-on-the-proposed-implementation-of-duti
+ es-on-additional-aluminum-steel\n---\nEvidence: This notice requests publi
+ c comments on a proposal to include 14 additional derivative articles with
+ in the scope of the Section 232 duties on steel\, aluminum\, and copper: a
+ luminum powder\; brass-wind musical instruments and their parts and access
+ ories\; parts of welding m
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
+END:VEVENT
+BEGIN:VEVENT
 UID:shock:global:bis-rule-effective-implementation-of-ear-db1ac2d:2026-11-2
  0
-DTSTAMP:20260805T231039Z
+DTSTAMP:20260807T013214Z
 SUMMARY:[SHOCK] BIS Rule Effective: Implementation of EAR Export Controls o
  n Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Relate
  d Changes
@@ -71,7 +114,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20260805T231039Z
+DTSTAMP:20260807T013214Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -85,7 +128,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20260805T231039Z
+DTSTAMP:20260807T013214Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -99,7 +142,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20260805T231039Z
+DTSTAMP:20260807T013214Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
