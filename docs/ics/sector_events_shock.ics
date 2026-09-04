@@ -5,7 +5,7 @@ X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-b5809561:2026-10-2
  6
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Directive Allocation Orders Un
@@ -27,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-dpas-directive-allo-d3d7fd7:2026-11-0
  4
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] BIS Comment Deadline: DPAS Directive Allocation Order and A
  dditional Requirements for Recoverable Critical Minerals and Materials
 DTSTART:20261104T000000Z
@@ -48,7 +48,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-rule-effective-implementation-of-ear-db1ac2d:2026-11-2
  0
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] BIS Rule Effective: Implementation of EAR Export Controls o
  n Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Relate
  d Changes
@@ -70,7 +70,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -84,7 +84,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -98,7 +98,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
@@ -112,7 +112,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-nvl72-ai-rack-output-value-to-exc-24fc750:2027-01-0
  1
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] NVIDIA NVL72 AI rack output value to exceed US$710B
 DTSTART:20270101T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260828-13204.html
@@ -125,7 +125,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-vr200-racks-increase-production-l-24fc750:2027-01-0
  1
-DTSTAMP:20260903T235654Z
+DTSTAMP:20260904T235541Z
 SUMMARY:[SHOCK] NVIDIA VR200 racks increase production\; largest shipment p
  ortion in 2027
 DTSTART:20270101T000000Z
