@@ -5,7 +5,7 @@ X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:shock:global:bis-rule-effective-implementation-of-ear-db1ac2d:2026-11-2
  0
-DTSTAMP:20261106T021255Z
+DTSTAMP:20261107T014617Z
 SUMMARY:[SHOCK] BIS Rule Effective: Implementation of EAR Export Controls o
  n Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Relate
  d Changes
@@ -27,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20261106T021255Z
+DTSTAMP:20261107T014617Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -41,7 +41,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20261106T021255Z
+DTSTAMP:20261107T014617Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -55,7 +55,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20261106T021255Z
+DTSTAMP:20261107T014617Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
@@ -69,7 +69,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-nvl72-ai-rack-output-value-to-exc-24fc750:2027-01-0
  1
-DTSTAMP:20261106T021255Z
+DTSTAMP:20261107T014617Z
 SUMMARY:[SHOCK] NVIDIA NVL72 AI rack output value to exceed US$710B
 DTSTART:20270101T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260828-13204.html
@@ -82,7 +82,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-vr200-racks-increase-production-l-24fc750:2027-01-0
  1
-DTSTAMP:20261106T021255Z
+DTSTAMP:20261107T014617Z
 SUMMARY:[SHOCK] NVIDIA VR200 racks increase production\; largest shipment p
  ortion in 2027
 DTSTART:20270101T000000Z
@@ -93,5 +93,49 @@ DESCRIPTION:Risk: 30/100 | Confidence: 0.50\nTags: NVDA\, AI\, data center\
  rgest portion of shipments in 2027
 CATEGORIES:shock
 X-SECTOR-TAGS:NVDA\,AI\,data center
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:bis-comment-deadline-agency-information-72efaace:2027-01-0
+ 5
+DTSTAMP:20261107T014617Z
+SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
+ ies\; Submission to the Office of Management and Budget (OMB) for Review a
+ nd Approval\; Comment Request\; Application Process To Waive t
+DTSTART:20270105T000000Z
+URL:https://www.federalregister.gov/documents/2026/11/06/2026-22726/agency-
+ information-collection-activities-submission-to-the-office-of-management-a
+ nd-budget-omb-for
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/11/06/202
+ 6-22726/agency-information-collection-activities-submission-to-the-office-
+ of-management-and-budget-omb-for\n---\nEvidence: The Department of Commerc
+ e\, in accordance with the Paperwork Reduction Act of 1995 (PRA)\, invites
+  the general public and other Federal agencies to comment on proposed\, an
+ d continuing information collections\, which helps us assess the impact of
+  our information collection
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:bis-comment-deadline-agency-information-3cc88994:2027-01-0
+ 5
+DTSTAMP:20261107T014617Z
+SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
+ ies\; Submission to the Office of Management and Budget (OMB) for Review a
+ nd Approval\; Comment Request\; Section 232 National Security 
+DTSTART:20270105T000000Z
+URL:https://www.federalregister.gov/documents/2026/11/06/2026-22725/agency-
+ information-collection-activities-submission-to-the-office-of-management-a
+ nd-budget-omb-for
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/11/06/202
+ 6-22725/agency-information-collection-activities-submission-to-the-office-
+ of-management-and-budget-omb-for\n---\nEvidence: The Department of Commerc
+ e\, in accordance with the Paperwork Reduction Act of 1995 (PRA)\, invites
+  the general public and other Federal agencies to comment on proposed\, an
+ d continuing information collections\, which helps us assess the impact of
+  our information collection
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
 END:VCALENDAR
