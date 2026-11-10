@@ -3,30 +3,9 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:bis-rule-effective-extension-of-the-susp-763348e:2026-11-0
- 9
-DTSTAMP:20261109T013650Z
-SUMMARY:[SHOCK] BIS Rule Effective: Extension of the Suspension of Expansio
- n of End-User Controls for Affiliates of Certain Listed Entities
-DTSTART:20261109T000000Z
-URL:https://www.federalregister.gov/documents/2026/11/09/2026-22793/extensi
- on-of-the-suspension-of-expansion-of-end-user-controls-for-affiliates-of-c
- ertain-listed
-DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
- on\, bis\nSource: https://www.federalregister.gov/documents/2026/11/09/202
- 6-22793/extension-of-the-suspension-of-expansion-of-end-user-controls-for-
- affiliates-of-certain-listed\n---\nEvidence: The Bureau of Industry and Se
- curity (BIS) is extending the suspension of the interim final rule (IFR)\,
-  "Expansion of End-User Controls to Cover Affiliates of Certain Listed Ent
- ities." The suspension was set to end November 9\, 2026. This final rule e
- xtends the suspension
-CATEGORIES:shock
-X-SECTOR-TAGS:semiconductor\,regulation\,bis
-END:VEVENT
-BEGIN:VEVENT
 UID:shock:global:bis-rule-effective-implementation-of-ear-db1ac2d:2026-11-2
  0
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] BIS Rule Effective: Implementation of EAR Export Controls o
  n Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Relate
  d Changes
@@ -48,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -62,7 +41,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -76,7 +55,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
@@ -90,7 +69,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-nvl72-ai-rack-output-value-to-exc-24fc750:2027-01-0
  1
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] NVIDIA NVL72 AI rack output value to exceed US$710B
 DTSTART:20270101T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260828-13204.html
@@ -103,7 +82,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-vr200-racks-increase-production-l-24fc750:2027-01-0
  1
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] NVIDIA VR200 racks increase production\; largest shipment p
  ortion in 2027
 DTSTART:20270101T000000Z
@@ -118,7 +97,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-72efaace:2027-01-0
  5
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Application Process To Waive t
@@ -140,7 +119,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3cc88994:2027-01-0
  5
-DTSTAMP:20261109T013650Z
+DTSTAMP:20261110T040140Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Section 232 National Security 
