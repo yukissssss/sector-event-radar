@@ -3,25 +3,9 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
-UID:shock:global:gartner-it-symposium-xpo-2026-harari-ai-c496ccc0:2026-11-1
- 2
-DTSTAMP:20261113T023118Z
-SUMMARY:[SHOCK] Gartner IT Symposium/Xpo 2026 - Harari AI Superintelligence
-  Warning
-DTSTART:20261112T083000Z
-URL:https://www.eetimes.com/harari-warns-tech-leaders-against-pursuing-ai-s
- uperintelligence/
-DESCRIPTION:Risk: 35/100 | Confidence: 0.85\nTags: AI\, tech\nSource: https
- ://www.eetimes.com/harari-warns-tech-leaders-against-pursuing-ai-superinte
- lligence/\n---\nEvidence: At Gartner IT Symposium/Xpo 2026\, philosopher Y
- uval Noah Harari makes an appeal to delay artificial superintelligence
-CATEGORIES:shock
-X-SECTOR-TAGS:AI\,tech
-END:VEVENT
-BEGIN:VEVENT
 UID:shock:global:bis-rule-effective-implementation-of-ear-db1ac2d:2026-11-2
  0
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] BIS Rule Effective: Implementation of EAR Export Controls o
  n Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Relate
  d Changes
@@ -43,7 +27,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -57,7 +41,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -71,7 +55,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
@@ -85,7 +69,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-nvl72-ai-rack-output-value-to-exc-24fc750:2027-01-0
  1
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] NVIDIA NVL72 AI rack output value to exceed US$710B
 DTSTART:20270101T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260828-13204.html
@@ -98,7 +82,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-vr200-racks-increase-production-l-24fc750:2027-01-0
  1
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] NVIDIA VR200 racks increase production\; largest shipment p
  ortion in 2027
 DTSTART:20270101T000000Z
@@ -113,7 +97,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-72efaace:2027-01-0
  5
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Application Process To Waive t
@@ -135,7 +119,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3cc88994:2027-01-0
  5
-DTSTAMP:20261113T023118Z
+DTSTAMP:20261114T021303Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Section 232 National Security 
