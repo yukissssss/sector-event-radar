@@ -3,9 +3,23 @@ VERSION:2.0
 PRODID:-//SectorEventRadar//EN
 X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
+UID:shock:global:nvidia-q3-2026-earnings-report-2cfc069c:2026-11-19
+DTSTAMP:20261120T025842Z
+SUMMARY:[SHOCK] Nvidia Q3 2026 Earnings Report
+DTSTART:20261119T102618Z
+URL:https://www.eetimes.com/nvidia-reports-115-8b-in-quarterly-revenue-unde
+ r-interim-ceo/
+DESCRIPTION:Risk: 65/100 | Confidence: 0.90\nTags: NVDA\, AI\, semiconducto
+ rs\nSource: https://www.eetimes.com/nvidia-reports-115-8b-in-quarterly-rev
+ enue-under-interim-ceo/\n---\nEvidence: Nvidia Reports $115.8B in Quarterl
+ y Revenue
+CATEGORIES:shock
+X-SECTOR-TAGS:NVDA\,AI\,semiconductors
+END:VEVENT
+BEGIN:VEVENT
 UID:shock:global:bis-rule-effective-implementation-of-ear-db1ac2d:2026-11-2
  0
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] BIS Rule Effective: Implementation of EAR Export Controls o
  n Silencers\, Mufflers\, and Sound Suppressors\; and Other Firearms Relate
  d Changes
@@ -27,7 +41,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -41,7 +55,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -55,7 +69,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
@@ -69,7 +83,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-nvl72-ai-rack-output-value-to-exc-24fc750:2027-01-0
  1
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] NVIDIA NVL72 AI rack output value to exceed US$710B
 DTSTART:20270101T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260828-13204.html
@@ -82,7 +96,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-vr200-racks-increase-production-l-24fc750:2027-01-0
  1
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] NVIDIA VR200 racks increase production\; largest shipment p
  ortion in 2027
 DTSTART:20270101T000000Z
@@ -97,7 +111,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-72efaace:2027-01-0
  5
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Application Process To Waive t
@@ -119,7 +133,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3cc88994:2027-01-0
  5
-DTSTAMP:20261119T030934Z
+DTSTAMP:20261120T025842Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Section 232 National Security 
@@ -135,6 +149,25 @@ DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
   the general public and other Federal agencies to comment on proposed\, an
  d continuing information collections\, which helps us assess the impact of
   our information collection
+CATEGORIES:shock
+X-SECTOR-TAGS:semiconductor\,regulation\,bis
+END:VEVENT
+BEGIN:VEVENT
+UID:shock:global:bis-comment-deadline-addressing-remote-a-1d0facc:2027-01-1
+ 9
+DTSTAMP:20261120T025842Z
+SUMMARY:[SHOCK] BIS Comment Deadline: Addressing Remote Access to Advanced 
+ Semiconductors
+DTSTART:20270119T000000Z
+URL:https://www.federalregister.gov/documents/2026/11/19/2026-23529/address
+ ing-remote-access-to-advanced-semiconductors
+DESCRIPTION:Risk: 70/100 | Confidence: 0.90\nTags: semiconductor\, regulati
+ on\, bis\nSource: https://www.federalregister.gov/documents/2026/11/19/202
+ 6-23529/addressing-remote-access-to-advanced-semiconductors\n---\nEvidence
+ : In this interim final rule (IFR)\, the Department of Commerce is establi
+ shing new rules to prevent certain foreign actors from leveraging advanced
+  computing power based on U.S. technology to threaten U.S. national securi
+ ty and foreign policy interests. First\, this rule e
 CATEGORIES:shock
 X-SECTOR-TAGS:semiconductor\,regulation\,bis
 END:VEVENT
