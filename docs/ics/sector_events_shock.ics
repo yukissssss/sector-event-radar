@@ -5,7 +5,7 @@ X-WR-CALNAME:SER - shock
 BEGIN:VEVENT
 UID:shock:global:micron-acquisition-of-psmc-s-tongluo-fab-00e5749:2027-01-0
  1
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] Micron Acquisition of PSMC's Tongluo Fab - Global DRAM Supp
  ly Impact
 DTSTART:20270101T000000Z
@@ -19,7 +19,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:hbm-contract-prices-expected-to-surge-mu-cafe564:2027-01-0
  1
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] HBM Contract Prices Expected to Surge Multiples Higher in 2
  027
 DTSTART:20270101T000000Z
@@ -33,7 +33,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:mature-node-price-increases-expected-due-d889942:2027-01-0
  1
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] Mature-node price increases expected due to foundry capacit
  y constraints
 DTSTART:20270101T000000Z
@@ -47,7 +47,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-nvl72-ai-rack-output-value-to-exc-24fc750:2027-01-0
  1
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] NVIDIA NVL72 AI rack output value to exceed US$710B
 DTSTART:20270101T000000Z
 URL:https://www.trendforce.com/presscenter/news/20260828-13204.html
@@ -60,7 +60,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nvidia-vr200-racks-increase-production-l-24fc750:2027-01-0
  1
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] NVIDIA VR200 racks increase production\; largest shipment p
  ortion in 2027
 DTSTART:20270101T000000Z
@@ -75,7 +75,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:nand-flash-revenue-forecast-downgrade-fo-471f794:2027-01-0
  1
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] NAND Flash Revenue Forecast Downgrade for 2027
 DTSTART:20270101T000000Z
 URL:https://www.trendforce.com/presscenter/news/20261125-13321.html
@@ -89,7 +89,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-72efaace:2027-01-0
  5
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Application Process To Waive t
@@ -111,7 +111,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-3cc88994:2027-01-0
  5
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Section 232 National Security 
@@ -133,7 +133,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-addressing-remote-a-1d0facc:2027-01-1
  9
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Addressing Remote Access to Advanced 
  Semiconductors
 DTSTART:20270119T000000Z
@@ -152,7 +152,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:shock:global:bis-comment-deadline-agency-information-a0379e4b:2027-01-2
  2
-DTSTAMP:20261127T040344Z
+DTSTAMP:20261128T034923Z
 SUMMARY:[SHOCK] BIS Comment Deadline: Agency Information Collection Activit
  ies\; Submission to the Office of Management and Budget (OMB) for Review a
  nd Approval\; Comment Request\; Additional Protocol Report For
